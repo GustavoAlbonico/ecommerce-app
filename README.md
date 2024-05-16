@@ -1,5 +1,5 @@
 # ecommerce-app
-*Front-End do projeto Ecommerce relacionado a matéria de desenvolvimento web 4ª fase ADS*
+**Front-End do projeto Ecommerce relacionado a matéria de desenvolvimento web 4ª fase ADS**
 
 > [!NOTE]
 > Apenas o responsável pelo repositório podera aceitar pull request.
@@ -7,11 +7,11 @@
 > [!WARNING]
 > REGRAS:
 > 
-> 1-*NUNCA FAÇA ALTERAÇÕES DIRETO NA MAIN*
+> 1-**NUNCA FAÇA ALTERAÇÕES DIRETO NA MAIN**
 > 
 > 2-Sempre crie um branch relacionado a entidade ou funcionalidade que está sendo desenvolvida.
 > 
-> 3-Padrão para criação de branch  *feature/EC-APP-numero-funcionalidade/entidade* EX: feature/EC-APP-01-produtos
+> 3-Padrão para criação de branch  **feature/EC-APP-numero-funcionalidade/entidade** EX: feature/EC-APP-01-produtos
 > 
 > 4-Depois de finalizada as funcionalidade da branch criar pull request para aprovação.
 
