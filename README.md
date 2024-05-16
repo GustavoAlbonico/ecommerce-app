@@ -18,15 +18,15 @@
 > [!TIP]
 > Comandos para terminal
 > 
-> git checkout -b "nome da branch" : cria uma branch com o nome descrito
+>  **git checkout -b "nome da branch"** : cria uma branch com o nome descrito
 > 
-> git clone link do repositorio: clona o repositório
+> **git clone link do repositorio**: clona o repositório
 > 
-> git status: mostra todos os arquivos alterados atualmente e o que estao adicionados ou não
+> **git status**: mostra todos os arquivos alterados atualmente e o que estao adicionados ou não
 > 
-> git add nome da pasta: adiciona a pasta ou o arquivo para o commit
+> **git add nome da pasta**: adiciona a pasta ou o arquivo para o commit
 > 
-> git commit -m "mensagem": cria o commit dos arquivos adicionados com a mensagem
+> **git commit -m "mensagem"**: cria o commit dos arquivos adicionados com a mensagem
 > 
-> git push : manda o commit para repositorio remoto.
+> **git push**: manda o commit para repositorio remoto.
 
