@@ -17,6 +17,9 @@
 
 > [!TIP]
 > Comandos para terminal
+>  **npm install**: para instalar as dependências do node.
+>
+> **npm start**: para rodar o projeto
 > 
 >  **git checkout -b "nome da branch"** : cria uma branch com o nome descrito
 > 
