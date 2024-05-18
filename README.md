@@ -17,6 +17,7 @@
 
 > [!TIP]
 > Comandos para terminal
+> 
 >  **npm install**: para instalar as dependências do node.
 >
 > **npm start**: para rodar o projeto
