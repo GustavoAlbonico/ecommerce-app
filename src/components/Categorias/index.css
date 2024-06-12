@@ -1,0 +1,19 @@
+.menu ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+}
+
+.menu li{   
+    width: 150px;
+}
+
+.menu li img{   
+    width: 150px;
+}
+
+.menu li h3{   
+   color: white;
+   margin: 0;
+}

@@ -1,15 +1,17 @@
 import { FC } from "react";
+import "./index.css"
 
-const MenuBar: FC = () => {
+const Categorias: FC = () => {
     return <>
       <div className="menu">
         <ul>
-          <li><a href="/home">Home</a></li>
-          <li><a href="/produtos">Produtos</a></li>
-          <li><a href="/sobre">Sobre</a></li>
+          <li><a href="/cartas"><img src="http://localhost:3000/1.png" alt="" /></a></li>
+          <li><a href="/magic"><img src="http://localhost:3000/1.png" alt="" /></a></li>
+          <li><a href="/rpg"><img src="http://localhost:3000/1.png" alt="" /></a></li>
+          <li><a href="/tabuleiro"><img src="http://localhost:3000/1.png" alt="" /></a></li>
         </ul>
       </div>
     </>
   }
   
-  export default MenuBar;
+  export default Categorias;
