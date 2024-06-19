@@ -1,20 +1,16 @@
-import { FC } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
+import React from 'react';
+import IconeCarrinho from './IconeCarrinho';
 
-const Router: FC = () => {
-  
-    return(
-        <BrowserRouter>
-          <Routes>
-               <Route path="/home" element={<Home />}/>
-               <Route path="/" element={<Home />}/>
-            
-           </Routes>
-        </BrowserRouter>
+const App: React.FC = () => {
+  const itemCount = 5; // Exemplo de número de itens no carrinho
 
-    )
-   
-  }
-  
-  export default Router;
+  return (
+    <div>
+      <h1>Meu Sistema</h1>
+      <IconeCarrinho itemCount={itemCount} />
+    </div>
+  );
+}
+
+export default App;
+ 
