@@ -1,0 +1,20 @@
+.menu-categorias ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    gap: 60px;
+    margin-top: 100px;
+}
+
+.menu-categorias li{   
+    width: 150px;
+}
+
+.menu-categorias li img{   
+    width: 150px;
+}
+
+
+  
+  
