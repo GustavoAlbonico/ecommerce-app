@@ -6,28 +6,37 @@ import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@
 const CardOferta: FC = () => {
 
     return (
-        <Card sx={{ maxWidth: 345 }}>
+      <div className="body-card-oferta">
+        <Card sx={{ maxWidth: 250
+                    
+         }}>
           <CardMedia
-            sx={{ height: 300,
-                  width: 300,
+            sx={{ height: 180,
+                  width: 250,
                   objectFit: 'cover'
              }}
             image="produtos/Matryoshka-caixa.png"
             title="Matryoshka caixa"
           />
-          <CardContent>
-            <Typography sx={{textAlign: 'center'}} gutterBottom variant="h5" component="div">
+          <CardContent sx={{textAlign: 'center'}}>
+            <Typography sx={{marginBottom: 2}} gutterBottom variant="h5" component="div">
             Matryoshka - Segunda Edição
             </Typography>
-            <Typography variant="body1">
+            <Typography sx={{fontSize: 18}} variant="body1">
              R$ 59,90
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button size="small">Comprar</Button>
-            <Button size="small">Ver detalhes</Button>
+          <CardActions sx={{ display: 'flex',
+                             alignItems: 'center',
+                             justifyContent: 'center',
+                             color: '#fffffff'
+           }}>
+          <Button sx={{ backgroundColor: '#660099',
+                        
+           }} size="small">Comprar</Button>
           </CardActions>
         </Card>
+      </div>
       );
 
 }

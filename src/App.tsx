@@ -3,7 +3,6 @@ import "./App.css"
 import Router from "./Router";
 import Carousel from "./components/Carousel/inde";
 import ShapeDivider from "./components/ShapeDivider";
-import CardOferta from "./components/CardOferta";
 
 
 
@@ -12,12 +11,11 @@ function App() {
     <div className="body">
       <div className="header">
         <div className="logo-header">
-        <img src="/pandora_title.png" alt="" />
+        <a href="/home"><img src="/pandora_title.png" alt="" /></a>
         </div>
         <Carousel />
         <ShapeDivider />
         <Categorias />
-        <CardOferta />
       </div>
       <Router />
     </div>
