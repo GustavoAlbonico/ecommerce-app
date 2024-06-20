@@ -7,7 +7,7 @@
   height: auto;
 }
 
-.logo-header > img{
+.logo-header > a img{
   margin-left: 12px;
   width: 8%;
 }
