@@ -1,0 +1,21 @@
+.component-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.component-header-container h3 {
+    margin: 0;
+    font-weight:500;
+}
+
+.component-header-container a {
+    text-decoration: none;
+    font-weight: 500;
+    color: #1178CB;
+}
+
+.component-header-container a:hover {
+    opacity: 0.7;
+}
