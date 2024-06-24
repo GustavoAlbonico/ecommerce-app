@@ -1,4 +1,5 @@
 export interface IPedido {
+    map(arg0: () => void): unknown
     id:number,
     valorTotal:number,
     formaPagamento: string,

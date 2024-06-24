@@ -23,7 +23,7 @@ const MinhaConta: FC = () => {
             const response = await apiGet(`cliente/carregar/usuario/${usuarioSessao.id}`);
     
             if (response.status === STATUS_CODE.OK) {
-                setCliente(response.data);
+                setCliente(response.data[0]);
             }
         }
     }

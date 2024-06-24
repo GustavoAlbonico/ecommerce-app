@@ -3,6 +3,7 @@ import ContentGroup from "../ContentGroup";
 import "./index.css";
 
 interface CardPedidoProperties {
+    status:string
     endereco:string,
     formaPagamento:string,
     quantidade:number,
@@ -13,6 +14,7 @@ interface CardPedidoProperties {
 }
 
 const CardPedido: FC<CardPedidoProperties> = ({
+    status,
     endereco,
     formaPagamento,
     quantidade,
@@ -25,7 +27,7 @@ const CardPedido: FC<CardPedidoProperties> = ({
     return <>
         <div className="card-pedido">
             <div className="card-pedido-header">
-                <h3>PAGO</h3>
+                <h3>{status}</h3>
             </div>
             <div className="card-pedido-details">
                 <ContentGroup

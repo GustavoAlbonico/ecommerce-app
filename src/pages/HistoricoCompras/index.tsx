@@ -8,7 +8,7 @@ import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
 
 const HistoricoCompras: FC = () => {
     const [usuarioSessaoNome, setUsuarioSessaoNome] = useState<string>("Usuário");
-    const [pedido, setPedido] = useState<IPedido>();
+    const [pedido, setPedido] = useState<IPedido[]>([]);
 
 
     const carregarPedido = async () => {
@@ -26,9 +26,6 @@ const HistoricoCompras: FC = () => {
         }
     }
 
-console.log(pedido)
-
-
     useEffect( () => {
             carregarPedido();
     }, []);
@@ -45,22 +42,24 @@ console.log(pedido)
                     pedido
                     ?
                     <>
-                    <p>{pedido.clienteNome}</p>
-                    {/* {pedido?.listaPedidoItem.map((pedidoItem:IPedidoItem) => {
-                        return <>
-                            <div className="container-card-pedido">
-                                <CardPedido
-                                    endereco={pedido.enderecoApelido}
-                                    formaPagamento={pedido.formaPagamento}
-                                    quantidade={pedidoItem.quantidade}
-                                    valorTotal={pedidoItem.valorTotal}
-                                    nomeProduto={pedidoItem.produto.nome}
-                                    descricaoProduto={pedidoItem.produto.descricao}
-                                    imagemProduto={pedidoItem.produto.imagem}
-                                />
-                            </div>
-                        </>
-                    })} */}
+                    <div className="container-card-pedido">
+                        {pedido.map((pedido:IPedido) => {
+                            return pedido?.listaPedidoItem.map((pedidoItem:IPedidoItem) => {
+                                return <>
+                                    <CardPedido
+                                        status={pedido.status}
+                                        endereco={pedido.enderecoApelido}
+                                        formaPagamento={pedido.formaPagamento}
+                                        quantidade={pedidoItem.quantidade}
+                                        valorTotal={pedidoItem.valorTotal}
+                                        nomeProduto={pedidoItem.produto.nome}
+                                        descricaoProduto={pedidoItem.produto.descricao}
+                                        imagemProduto={pedidoItem.produto.imagem}
+                                    />
+                                </>
+                            })
+                        })}
+                    </div>
                     </>
                     :
                     <>
