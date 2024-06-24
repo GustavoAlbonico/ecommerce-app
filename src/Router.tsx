@@ -8,29 +8,30 @@ import Tabuleiro from "./pages/Tabuleiro";
 import MinhaConta from "./pages/MinhaConta";
 import HistoricoCompras from "./pages/HistoricoCompras";
 import Cliente from "./pages/Cliente";
+import PedidoEndereco from "./pages/PedidoEndereco";
 
 const Router: FC = () => {
-  
-    return(
-        <BrowserRouter>
-          <Routes>
-               <Route path="/home" element={<Home />}/>
-               <Route path="/" element={<Home />}/>
-               <Route path="/cartas" element={<Cartas />}/>
-               <Route path="/magic" element={<Magic />}/>
-               <Route path="/rpg" element={<RPG />}/>
-               <Route path="/tabuleiro" element={<Tabuleiro />}/>
-               <Route path="/usuario/minhaconta" element={<MinhaConta/>}/>
-               <Route path="/usuario/pedidos" element={<HistoricoCompras/>}/>
-               <Route path="/usuario/editar" element={<Cliente/>}/>
-               {/* <Route path="/usuario/endereco/editar" element={<HistoricoCompras/>}/>
-               <Route path="/usuario/endereco/adicionar" element={<HistoricoCompras/>}/> */}
-            
-           </Routes>
-        </BrowserRouter>
 
-    )
-   
-  }
-  
-  export default Router;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/cartas" element={<Cartas />} />
+        <Route path="/magic" element={<Magic />} />
+        <Route path="/rpg" element={<RPG />} />
+        <Route path="/tabuleiro" element={<Tabuleiro />} />
+        <Route path="/usuario/minhaconta" element={<MinhaConta />} />
+        <Route path="/usuario/pedidos" element={<HistoricoCompras />} />
+        <Route path="/usuario/editar" element={<Cliente />} />
+        {/* <Route path="/usuario/endereco/editar" element={<HistoricoCompras/>}/>
+               <Route path="/usuario/endereco/adicionar" element={<HistoricoCompras/>}/> */}
+        <Route path="/pedido" element={<PedidoEndereco />} />
+      </Routes>
+    </BrowserRouter>
+
+  )
+
+}
+
+export default Router;
