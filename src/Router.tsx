@@ -5,6 +5,9 @@ import Magic from "./pages/Magic";
 import RPG from "./pages/RPG";
 import Cartas from "./pages/Cartas";
 import Tabuleiro from "./pages/Tabuleiro";
+import MinhaConta from "./pages/MinhaConta";
+import HistoricoCompras from "./pages/HistoricoCompras";
+import Cliente from "./pages/Cliente";
 
 const Router: FC = () => {
   
@@ -17,6 +20,11 @@ const Router: FC = () => {
                <Route path="/magic" element={<Magic />}/>
                <Route path="/rpg" element={<RPG />}/>
                <Route path="/tabuleiro" element={<Tabuleiro />}/>
+               <Route path="/usuario/minhaconta" element={<MinhaConta/>}/>
+               <Route path="/usuario/pedidos" element={<HistoricoCompras/>}/>
+               <Route path="/usuario/editar" element={<Cliente/>}/>
+               {/* <Route path="/usuario/endereco/editar" element={<HistoricoCompras/>}/>
+               <Route path="/usuario/endereco/adicionar" element={<HistoricoCompras/>}/> */}
             
            </Routes>
         </BrowserRouter>
