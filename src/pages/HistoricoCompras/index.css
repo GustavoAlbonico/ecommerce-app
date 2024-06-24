@@ -20,3 +20,9 @@
     font-size: 2.2rem;
     font-weight: 400;
 }
+
+.container-card-pedido {
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    gap: 2rem;
+}

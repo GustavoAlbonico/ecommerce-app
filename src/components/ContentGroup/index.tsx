@@ -3,7 +3,7 @@ import "./index.css"
 
 interface ContentGroupProperties {
     titulo:string,
-    descricao:string,
+    descricao:string | number,
 }
 
 const ContentGroup: FC<ContentGroupProperties> = ({
@@ -13,7 +13,7 @@ const ContentGroup: FC<ContentGroupProperties> = ({
     return <>
         <div className="component-content-group">
             <h4>{titulo}</h4>
-            <p title={descricao}>{descricao}</p>
+            <p title={descricao.toString()}>{descricao}</p>
         </div>
     </>
 }
