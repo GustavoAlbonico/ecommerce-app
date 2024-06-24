@@ -15,6 +15,7 @@ export interface IUsuario {
 }
 
 export interface IEndereco {
+    id:number,
     apelido:string
     bairro:string,
     numero:string,

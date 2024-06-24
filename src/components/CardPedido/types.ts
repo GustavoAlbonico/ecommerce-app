@@ -1,0 +1,6 @@
+export enum FORMA_PAGAMENTO {
+    PENDENTE = "PENDENTE",
+    PAGO = "PAGO",
+    CANCELADO = "CANCELADO",
+    ENTREGUE = "ENTREGUE",
+}

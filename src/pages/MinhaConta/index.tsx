@@ -6,7 +6,6 @@ import ContentGroup from "../../components/ContentGroup"
 import { ICliente, IEndereco } from "./types"
 import { STATUS_CODE, apiGet } from "../../api/RestClient"
 import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore"
-import { hexToRgb } from "@mui/material"
 
 const MinhaConta: FC = () => {
     const [cliente, setCliente] = useState<ICliente>();
@@ -47,7 +46,7 @@ const MinhaConta: FC = () => {
                                 <HeaderContainer
                                     titulo="Informações do perfil"
                                     nomeBotao="Editar Informações do perfil"
-                                    rota="editar"
+                                    rota={`/editar?idCliente=${cliente.id}`}
                                 />
                                 <ContentGroup
                                     titulo="Data de Nascimento"
@@ -66,7 +65,7 @@ const MinhaConta: FC = () => {
                                 <HeaderContainer
                                     titulo="Endereços"
                                     nomeBotao="Adicionar"
-                                    rota="endereco/adicionar"
+                                    rota={`/endereco/adicionar?idCliente=${cliente.id}`}
                                 />
                                 {cliente.enderecos.map((endereco: IEndereco) => {
                                     return <>
@@ -75,7 +74,7 @@ const MinhaConta: FC = () => {
                                                 <HeaderContainer
                                                     titulo={endereco.apelido}
                                                     nomeBotao="Editar"
-                                                    rota="endereco/editar"
+                                                    rota={`/endereco/editar?idEndereco=${endereco.id}`}
                                                 />
                                                 <div className="minha-conta-endereco-card-content">
                                                     <ContentGroup

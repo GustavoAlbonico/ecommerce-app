@@ -1,5 +1,6 @@
 import { SvgIconProps } from "@mui/material";
 import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface LiProperties {
     rota:string,
@@ -12,8 +13,11 @@ const Li: FC<LiProperties> = ({
     titulo,
     icon
 }) => {
+    
+    const navigate = useNavigate();
+
     const redirecionamento = (rota:string) => {
-        window.location.href = `/usuario/${rota}`;
+        navigate(`/usuario/${rota}`);
     }
 
     return <>
