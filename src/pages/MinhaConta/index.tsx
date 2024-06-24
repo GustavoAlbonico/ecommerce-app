@@ -22,7 +22,7 @@ const MinhaConta: FC = () => {
             const response = await apiGet(`cliente/carregar/usuario/${usuarioSessao.id}`);
     
             if (response.status === STATUS_CODE.OK) {
-                setCliente(response.data[0]);
+                setCliente(response.data);
             }
         }
     }
@@ -46,7 +46,7 @@ const MinhaConta: FC = () => {
                                 <HeaderContainer
                                     titulo="Informações do perfil"
                                     nomeBotao="Editar Informações do perfil"
-                                    rota={`/editar?idCliente=${cliente.id}`}
+                                    rota={`editar?idCliente=${cliente.id}`}
                                 />
                                 <ContentGroup
                                     titulo="Data de Nascimento"

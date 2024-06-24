@@ -5,34 +5,55 @@ import "./index.css";
 import { TextField } from "@mui/material";
 import Button from "../../components/Button";
 import { IClienteEdit } from "./types";
-import { STATUS_CODE, apiGet } from "../../api/RestClient";
+import { STATUS_CODE, apiGet, apiPut } from "../../api/RestClient";
 import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
+import { ICliente } from "../MinhaConta/types";
+import { IUsuarioStore } from "../../store/UsuarioStore/types";
 
 const Cliente: FC = () => {
     const navigate = useNavigate();
-    const [usuarioSessaoNome, setUsuarioSessaoNome] = useState<string>("Usuário");
+    const [usuarioSessao, setUsuarioSessao] = useState<IUsuarioStore>();
     const [urlParametro, setUrlParametro] = useSearchParams();
-    const [cliente, setCliente] = useState<IClienteEdit>();
-    const [dataNascimento, setDataNascimento] = useState<string>();
-    const [email, setEmail] = useState<string>();
-    const [telefone, setTelefone] = useState<string>();
+    const [dataNascimento, setDataNascimento] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [telefone, setTelefone] = useState<string>('');
+    const [nome, setNome] = useState<string>('');
 
     const buscaClientePorId = async () => {
         const usuarioSessao = buscaUsuarioSessao();
         
         if (usuarioSessao.login) {
-            setUsuarioSessaoNome(usuarioSessao.login);
+            setUsuarioSessao(usuarioSessao);
 
             const response = await apiGet(`/cliente/carregar/${urlParametro.get('idCliente')}`);
 
             if (response.status === STATUS_CODE.OK) {
-                setCliente(response.data);
+                setDataNascimento(response.data.dataNascimento);
+                setEmail(response.data.email);
+                setTelefone(response.data.telefone);
+                setNome(response.data.nome);
             }
         }
     }
 
-    const editarCliente = () => {
+    console.log(usuarioSessao?.id);
 
+    const editarCliente = async () => {
+
+        const cliente:IClienteEdit = {
+            nome:nome,
+            dataNascimento:dataNascimento,
+            email:email,
+            telefone:telefone,
+            usuario_id:usuarioSessao?.id || 0
+        }
+
+        const response = await apiPut(`/cliente/atualizar/${urlParametro.get('idCliente')}`, cliente);
+
+        if(response.status === STATUS_CODE.OK){
+            alert("perfil editado com sucesso!");
+            navigate("/usuario/minhaconta");
+        }
     }
 
     const redirecionamento = () => {
@@ -45,7 +66,7 @@ const Cliente: FC = () => {
 
     return <>
         <div className="container-cliente">
-            <Aside usuarioNome={usuarioSessaoNome} />
+            <Aside usuarioNome={usuarioSessao?.login || "Usuário"} />
             <main className="cliente-main">
                 <div className="titulo-detalhes-cliente">
                     <h2>Suas Informações &#707;  Informações do Perfil &#707; Editar</h2>
@@ -53,7 +74,7 @@ const Cliente: FC = () => {
                 <div className="cliente-form">
                     <TextField
                         fullWidth
-                        value={cliente?.dataNascimento}
+                        value={dataNascimento}
                         label="Data de Nascimento"
                         type="date"
                         onChange={(event) => {
@@ -64,7 +85,7 @@ const Cliente: FC = () => {
                     />
                     <TextField
                         fullWidth
-                        value={cliente?.email}
+                        value={email}
                         label="E-mail"
                         type="mail"
                         onChange={(event) => {
@@ -75,7 +96,7 @@ const Cliente: FC = () => {
                     />
                     <TextField
                         fullWidth
-                        value={cliente?.telefone}
+                        value={telefone}
                         label="Telefone"
                         type="text"
                         onChange={(event) => {
