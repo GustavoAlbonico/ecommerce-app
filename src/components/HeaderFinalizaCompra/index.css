@@ -1,0 +1,22 @@
+.finaliza-compra-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.finaliza-compra-header h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 500;
+}
+
+.etapas svg{
+    width: 40px;
+    height: 40px;
+}
+
+.css-zpcwqm-MuiStepConnector-root{
+    top: 20px !important;
+    left: calc(-50% + 20px) !important;
+    right: calc(50% + 20px) !important;
+}
