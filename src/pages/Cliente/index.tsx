@@ -2,13 +2,13 @@ import { FC, useEffect, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Aside from "../../components/Aside";
 import "./index.css";
-import { TextField } from "@mui/material";
+import { AlertColor, TextField } from "@mui/material";
 import Button from "../../components/Button";
 import { IClienteEdit } from "./types";
 import { STATUS_CODE, apiGet, apiPut } from "../../api/RestClient";
 import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
-import { ICliente } from "../MinhaConta/types";
 import { IUsuarioStore } from "../../store/UsuarioStore/types";
+import MensagemModal from "../../components/MensagemModal";
 
 const Cliente: FC = () => {
     const navigate = useNavigate();
@@ -18,10 +18,13 @@ const Cliente: FC = () => {
     const [email, setEmail] = useState<string>('');
     const [telefone, setTelefone] = useState<string>('');
     const [nome, setNome] = useState<string>('');
+    const [estadoModal, setEstadoModal] = useState<boolean>(false);
+    const [mensagemModal, setMensagemModal] = useState<string[]>([]);
+    const [corModal, setCorModal] = useState<AlertColor>("success");
 
     const buscaClientePorId = async () => {
         const usuarioSessao = buscaUsuarioSessao();
-        
+
         if (usuarioSessao.login) {
             setUsuarioSessao(usuarioSessao);
 
@@ -36,23 +39,36 @@ const Cliente: FC = () => {
         }
     }
 
-    console.log(usuarioSessao?.id);
-
     const editarCliente = async () => {
 
-        const cliente:IClienteEdit = {
-            nome:nome,
-            dataNascimento:dataNascimento,
-            email:email,
-            telefone:telefone,
-            usuario_id:usuarioSessao?.id || 0
+        const cliente: IClienteEdit = {
+            nome: nome,
+            dataNascimento: dataNascimento,
+            email: email,
+            telefone: telefone,
+            usuario_id: usuarioSessao?.id || 0
         }
 
         const response = await apiPut(`/cliente/atualizar/${urlParametro.get('idCliente')}`, cliente);
 
-        if(response.status === STATUS_CODE.OK){
-            alert("perfil editado com sucesso!");
-            navigate("/usuario/minhaconta");
+        if (response.status === STATUS_CODE.OK) {
+            navigate("/usuario/minhaconta",{ state:{
+                estadoModal: true, 
+                msgModal:"Perfil editado com sucesso!"
+                } 
+            });
+        }
+
+        if (response.status === STATUS_CODE.INTERNAL_SERVER_ERROR) {
+            setEstadoModal(true);
+            setMensagemModal(["Erro Inesperado!"]);
+            setCorModal("error");
+        }
+
+        if (response.status === STATUS_CODE.BAD_REQUEST) {
+            setEstadoModal(true);
+            setMensagemModal(response.messages);
+            setCorModal("warning");
         }
     }
 
@@ -62,9 +78,17 @@ const Cliente: FC = () => {
 
     useEffect(() => {
         buscaClientePorId();
-    },[]);
+    }, []);
 
     return <>
+        <MensagemModal
+            estadoInicial={estadoModal}
+            corModal={corModal}
+            mensagem={mensagemModal}
+            onClose={() => {
+                setEstadoModal(false);
+            }}
+        />
         <div className="container-cliente">
             <Aside usuarioNome={usuarioSessao?.login || "Usuário"} />
             <main className="cliente-main">

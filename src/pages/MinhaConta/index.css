@@ -55,7 +55,7 @@
     padding: 3rem 4rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
 }
 .minha-conta-endereco-card {
     border: 1px solid #817F7F;
