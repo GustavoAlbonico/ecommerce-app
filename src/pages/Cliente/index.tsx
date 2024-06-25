@@ -36,8 +36,6 @@ const Cliente: FC = () => {
         }
     }
 
-    console.log(usuarioSessao?.id);
-
     const editarCliente = async () => {
 
         const cliente:IClienteEdit = {

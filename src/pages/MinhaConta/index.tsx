@@ -65,7 +65,7 @@ const MinhaConta: FC = () => {
                                 <HeaderContainer
                                     titulo="Endereços"
                                     nomeBotao="Adicionar"
-                                    rota={`/endereco/adicionar?idCliente=${cliente.id}`}
+                                    rota={`/usuario/endereco/adicionar?idCliente=${cliente.id}`}
                                 />
                                 {cliente.enderecos.map((endereco: IEndereco) => {
                                     return <>
@@ -74,7 +74,7 @@ const MinhaConta: FC = () => {
                                                 <HeaderContainer
                                                     titulo={endereco.apelido}
                                                     nomeBotao="Editar"
-                                                    rota={`/endereco/editar?idEndereco=${endereco.id}`}
+                                                    rota={`/usuario/endereco/editar?idEndereco=${endereco.id}`}
                                                 />
                                                 <div className="minha-conta-endereco-card-content">
                                                     <ContentGroup
