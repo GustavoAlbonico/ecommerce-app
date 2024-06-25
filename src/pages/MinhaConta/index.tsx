@@ -6,40 +6,70 @@ import ContentGroup from "../../components/ContentGroup"
 import { ICliente, IEndereco } from "./types"
 import { STATUS_CODE, apiGet } from "../../api/RestClient"
 import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore"
+import MensagemModal from "../../components/MensagemModal"
+import { AlertColor } from "@mui/material"
+import { useLocation } from "react-router-dom"
 
 const MinhaConta: FC = () => {
+    const location = useLocation();
+    const { state } = location;
     const [cliente, setCliente] = useState<ICliente>();
     const [usuarioSessaoNome, setUsuarioSessaoNome] = useState<string>("Usuário");
+    const [estadoModal, setEstadoModal] = useState<boolean>(false);
+    const [mensagemModal, setMensagemModal] = useState<string[]>([]);
+    const [corModal, setCorModal] = useState<AlertColor>("success");
 
     const carregarCliente = async () => {
 
         const usuarioSessao = buscaUsuarioSessao();
-        
-        if(usuarioSessao.login){
+
+        if (usuarioSessao.login) {
 
             setUsuarioSessaoNome(usuarioSessao.login);
 
             const response = await apiGet(`cliente/carregar/usuario/${usuarioSessao.id}`);
-    
+
             if (response.status === STATUS_CODE.OK) {
                 setCliente(response.data);
+                return;
             }
+
+            setEstadoModal(true);
+            setMensagemModal(["Erro inesperado!"]);
+            setCorModal("error");
+        }
+     
+    }
+
+    const showMensagemModal = () => {
+        if(state){
+            setEstadoModal(state.estadoModal);
+            setMensagemModal([state.msgModal]);
         }
     }
 
     useEffect(() => {
         carregarCliente();
+        showMensagemModal();
     }, []);
 
     return <>
+        <MensagemModal
+            estadoInicial={estadoModal}
+            corModal={corModal}
+            mensagem={mensagemModal}
+            onClose={() => {
+                setEstadoModal(false);
+            }}
+        />
         <div className="container-minha-conta">
             <Aside usuarioNome={usuarioSessaoNome} />
             <main className="minha-conta-main">
                 <div className="titulo-detalhes-conta">
                     <h2>Suas Informações</h2>
                 </div>
-                    {
-                     cliente
+                {
+                    cliente
                         ?
                         <>
                             <div className="minha-conta-perfil">
@@ -67,14 +97,14 @@ const MinhaConta: FC = () => {
                                     nomeBotao="Adicionar"
                                     rota={`/usuario/endereco/adicionar?idCliente=${cliente.id}`}
                                 />
-                                {cliente.enderecos.map((endereco: IEndereco) => {
-                                    return <>
-                                        <div className="minha-conta-endereco-content">
+                                <div className="minha-conta-endereco-content">
+                                    {cliente.enderecos.map((endereco: IEndereco) => {
+                                        return <>
                                             <div className="minha-conta-endereco-card">
                                                 <HeaderContainer
                                                     titulo={endereco.apelido}
                                                     nomeBotao="Editar"
-                                                    rota={`/usuario/endereco/editar?idEndereco=${endereco.id}`}
+                                                    rota={`/usuario/endereco/editar?idCliente=${cliente.id}&idEndereco=${endereco.id}`}
                                                 />
                                                 <div className="minha-conta-endereco-card-content">
                                                     <ContentGroup
@@ -99,15 +129,15 @@ const MinhaConta: FC = () => {
                                                     />
                                                 </div>
                                             </div>
-                                        </div>
-                                    </>
-                                })}
+                                        </>
+                                    })}
+                                </div>
                             </div>
                         </>
                         :
                         <>
                         </>
-                    }
+                }
             </main>
         </div>
     </>

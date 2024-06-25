@@ -24,8 +24,8 @@ const Router: FC = () => {
                <Route path="/usuario/minhaconta" element={<MinhaConta/>}/>
                <Route path="/usuario/pedidos" element={<HistoricoCompras/>}/>
                <Route path="/usuario/editar" element={<Cliente/>}/>
-               <Route path="/usuario/endereco/editar" element={<Endereco/>}/>
-               <Route path="/usuario/endereco/adicionar" element={<Endereco/>}/>
+               <Route path="/usuario/endereco/editar" element={<Endereco acao="Editar"/>}/>
+               <Route path="/usuario/endereco/adicionar" element={<Endereco acao="Adicionar"/>}/>
             
            </Routes>
         </BrowserRouter>
