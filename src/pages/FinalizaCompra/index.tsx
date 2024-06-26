@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 const FinalizaCompra: FC = () => {
     const navigate = useNavigate();
     const [mostraModalEndereco, setMostraModalEndereco] = useState<boolean>(true);
+    const [mostraModalPagamento, setMostraModalPagamento] = useState<boolean>(false);
     const [idEndereco, setIdEndereco] = useState<number>(0);
     const [etapa, setEtapa] = useState<number>(0);
     const [labelProximo, setLabelProximo] = useState<string>("Próximo");
@@ -23,13 +24,17 @@ const FinalizaCompra: FC = () => {
 
             switch(etapa){
                 case 0:
-                    setMostraModalEndereco(false); 
+                    setMostraModalEndereco(false);
+                    setMostraModalPagamento(true);
                 break;
                 case 1:
-                    setLabelProximo("Finalizar"); 
+                    setMostraModalPagamento(false);
+                    setLabelProximo("Página Inicial");
                 break;
                 case 2:
-                    navigate("/home");
+                    setTimeout(() => {
+                        navigate("/home");
+                    },500);
                 break;
             }
         }
@@ -41,10 +46,11 @@ const FinalizaCompra: FC = () => {
 
         switch(etapa){
             case 1:
-                setMostraModalEndereco(true); 
+                setMostraModalEndereco(true);
+                setMostraModalPagamento(false);
             break;
             case 2:
-                // setMostraModalPagamento(false); 
+                setMostraModalPagamento(true);
             break;
         }
     };
@@ -53,13 +59,14 @@ const FinalizaCompra: FC = () => {
 
     useEffect(() => {
 
-    }, [mostraModalEndereco])
+    }, [mostraModalEndereco,mostraModalPagamento])
+    
     return <>
         <div className="container-finaliza-compra">
             <HeaderFinalizaCompra etapa={etapa} />
             <div className="content-finaliza">
                 <FinalizaCompraEndereco mostraModal={mostraModalEndereco} buscaEndereco={buscaEnderecoId} />
-                <FinalizaCompraPagamento/>
+                <FinalizaCompraPagamento mostraModal={mostraModalPagamento}/>
             </div>
             <div className="container-buttons-finaliza-compra">
                 <MobileStepper

@@ -1,39 +1,106 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { FORMA_PAGAMENTO } from "./types";
 import "./index.css";
+import { buscaItensCarrinho } from "../../store/CarrinhoStore/carrinhoStore";
+import { ICarrinhoStore } from "../../store/CarrinhoStore/types";
+import Cartao from "../Cartao";
+import Pix from "../Pix";
+import Boleto from "../Boleto";
 
-const FinalizaCompraPagamento: FC = () => {
-    const [formaPagamento, setFormaPagamento] = useState<FORMA_PAGAMENTO>(FORMA_PAGAMENTO.NONE);
-    const [valorTotal, setValorTotal] = useState<number>();
+interface FinalizaCompraPagamentoProperties {
+    mostraModal: boolean,
+}
+
+const FinalizaCompraPagamento: FC<FinalizaCompraPagamentoProperties> = ({
+    mostraModal,
+}) => {
+    const [open, setOpen] = useState<boolean>(false);
+    const [mostraCartao, setMostraCartao] = useState<boolean>(true);
+    const [mostraPix, setMostraPix] = useState<boolean>(false);
+    const [mostraBoleto, setMostraBoleto] = useState<boolean>(false);
+    const [formaPagamento, setFormaPagamento] = useState<FORMA_PAGAMENTO>(FORMA_PAGAMENTO.CARTAO);
+    const [valorTotal, setValorTotal] = useState<string>();
+
+    const mudaModal = () => (mostraModal ? setOpen(true) : setOpen(false));
 
     const mudaSelecao = (event: SelectChangeEvent) => {
-        setFormaPagamento(event.target.value as FORMA_PAGAMENTO);
+        const formaPagementoEnum: FORMA_PAGAMENTO = event.target.value as FORMA_PAGAMENTO;
+
+        setFormaPagamento(formaPagementoEnum);
+        mudaContent(formaPagementoEnum);
     };
 
-    return <>
-        <div className="container-pagamento">
+    const mudaContent = (formaPagementoEnum: FORMA_PAGAMENTO) => {
+        switch (formaPagementoEnum) {
+            case FORMA_PAGAMENTO.CARTAO:
+                setMostraCartao(true);
+                setMostraBoleto(false);
+                setMostraPix(false);
+                break;
+            case FORMA_PAGAMENTO.PIX:
+                setMostraCartao(false);
+                setMostraBoleto(false);
+                setMostraPix(true);
+                break;
+            case FORMA_PAGAMENTO.BOLETO:
+                setMostraCartao(false);
+                setMostraBoleto(true);
+                setMostraPix(false);
+                break;
+        }
+    }
 
-            <div className="header-pagamento">
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Forma de Pagamento</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={formaPagamento}
-                        label="Forma de Pagamento"
-                        onChange={mudaSelecao}
-                    >
-                        <MenuItem value={FORMA_PAGAMENTO.PIX}>{FORMA_PAGAMENTO.PIX}</MenuItem>
-                        <MenuItem value={FORMA_PAGAMENTO.BOLETO}>{FORMA_PAGAMENTO.BOLETO}</MenuItem>
-                        <MenuItem value={FORMA_PAGAMENTO.CARTAO}>{FORMA_PAGAMENTO.CARTAO}</MenuItem>
-                    </Select>
-                </FormControl>
-                <div className="header-title-pagamento">
-                    <h3>Valor Total:R$ {valorTotal}</h3>
+    const calculaValorTotal = () => {
+        const listaCarrinho: ICarrinhoStore[] = buscaItensCarrinho();
+
+        let somaTotal: number = 0;
+
+        listaCarrinho.forEach((carrinho: ICarrinhoStore) => {
+            somaTotal += carrinho.quantidade * carrinho.valorUnitario;
+        });
+
+        setValorTotal(Intl.NumberFormat("pt-BR", { style: 'currency', currency: 'BRL' }).format(somaTotal));
+    }
+
+    useEffect(() => {
+        mudaModal();
+        calculaValorTotal();
+    }, [mostraModal]);
+
+    return <>
+        {
+            open
+            &&
+            <>
+                <div className="container-pagamento">
+                    <div className="header-pagamento">
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Forma de Pagamento</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={formaPagamento}
+                                label="Forma de Pagamento"
+                                onChange={mudaSelecao}
+                            >
+                                <MenuItem value={FORMA_PAGAMENTO.PIX}>{FORMA_PAGAMENTO.PIX}</MenuItem>
+                                <MenuItem value={FORMA_PAGAMENTO.CARTAO}>{FORMA_PAGAMENTO.CARTAO}</MenuItem>
+                                <MenuItem value={FORMA_PAGAMENTO.BOLETO}>{FORMA_PAGAMENTO.BOLETO}</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <div className="header-title-pagamento">
+                            <h3>Valor Total: {valorTotal}</h3>
+                        </div>
+                    </div>
+                    <div className="content-pagamento">
+                        <Cartao mostraModal={mostraCartao} />
+                        <Pix mostraModal={mostraPix}/>
+                        <Boleto mostraModal={mostraBoleto}/>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </>
+        }
     </>
 }
 
