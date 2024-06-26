@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import ContentGroup from "../ContentGroup";
 import "./index.css";
-import { FORMA_PAGAMENTO } from "./types";
+import { STATUS } from "./types";
 
 interface CardPedidoProperties {
     status:string
@@ -31,19 +31,19 @@ const CardPedido: FC<CardPedidoProperties> = ({
     const mudaCorCard = (status:string) => {
         
         switch(status) {
-            case FORMA_PAGAMENTO.PAGO:
+            case STATUS.PAGO:
                 setCardClasseCor("card-pago");
                 setTituloClasseCor("card-titulo-pago");
             break;
-            case FORMA_PAGAMENTO.PENDENTE:
+            case STATUS.PENDENTE:
                 setCardClasseCor("card-pendente");
                 setTituloClasseCor("card-titulo-pendente");
             break;
-            case FORMA_PAGAMENTO.CANCELADO:
+            case STATUS.CANCELADO:
                 setCardClasseCor("card-cancelado");
                 setTituloClasseCor("card-titulo-cancelado");
             break;
-            case FORMA_PAGAMENTO.ENTREGUE:
+            case STATUS.ENTREGUE:
                 setCardClasseCor("card-entregue");
                 setTituloClasseCor("card-titulo-entregue");
             break;

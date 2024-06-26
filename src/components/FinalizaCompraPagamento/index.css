@@ -1,0 +1,24 @@
+.container-pagamento {
+    padding: 3rem 4rem 1rem 4rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-pagamento {
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-pagamento > div {
+    width: 60%;
+}
+
+.header-title-pagamento h3 {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
