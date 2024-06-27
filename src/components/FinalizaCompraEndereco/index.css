@@ -1,0 +1,76 @@
+.component-header-container {
+    border-bottom: 1px solid #CECECE;
+}
+
+.finaliza-compra-endereco-content {
+    padding: 3rem 4rem 1rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.finaliza-compra-endereco-card {
+    cursor: pointer;
+    border: 1px solid #817F7F;
+    border-radius: 10px;
+    opacity: 0.8;
+}
+
+.finaliza-compra-endereco-card:hover {
+    background-color: #eff3fa;
+    opacity: 1;
+}
+
+.endereco-destaque-on {
+    transition: 0.5s;
+    transform: translateX(20px);
+    background-color: #eff3fa;
+    opacity: 1;
+}
+
+.endereco-destaque-off {
+    transition: 0.5s;
+    transform: translateX(0px);
+}
+
+.finaliza-compra-endereco-card .component-header-container h3 {
+    font-size: 0.9rem;
+}
+
+.finaliza-compra-endereco-card-content {
+    display: grid;
+    grid-template:
+        "a d"
+        "b e"
+        "c e";
+    grid-template-columns: 1fr 1fr;
+}
+
+.finaliza-compra-endereco-card-content .component-content-group {
+    border-bottom: 1px solid #CECECE;
+    border-right: 1px solid #CECECE;
+    font-size: 0.8rem;
+}
+
+.finaliza-compra-endereco-card-content :nth-child(1) {
+    grid-area: a;
+}
+
+.finaliza-compra-endereco-card-content :nth-child(2) {
+    grid-area: b;
+}
+
+.finaliza-compra-endereco-card-content :nth-child(3) {
+    grid-area: c;
+    border-bottom: none;
+}
+
+.finaliza-compra-endereco-card-content :nth-child(4) {
+    grid-area: d;
+    border-right: none;
+}
+
+.finaliza-compra-endereco-card-content :nth-child(5) {
+    grid-area: e;
+    border: none;
+}

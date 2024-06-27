@@ -51,3 +51,5 @@ export const removeItemCarrinho = (id:number): ICarrinhoStore[]  => {
 
     return carrinho;
 }
+
+export const limpaCarrinho = () => (localStorage.removeItem(CARRINHO_STORE));

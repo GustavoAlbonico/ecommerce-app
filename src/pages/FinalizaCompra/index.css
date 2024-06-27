@@ -1,0 +1,9 @@
+.container-finaliza-compra {
+    margin: 0 10% 2rem 10%;
+}
+
+.container-buttons-finaliza-compra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -5,6 +5,7 @@ import MinhaConta from "./pages/MinhaConta";
 import HistoricoCompras from "./pages/HistoricoCompras";
 import Cliente from "./pages/Cliente";
 import Endereco from "./pages/Endereco";
+import FinalizaCompra from "./pages/FinalizaCompra";
 import DetalheProduto from "./pages/DetalheProduto";
 
 const Router: FC = () => {
@@ -20,6 +21,7 @@ const Router: FC = () => {
                <Route path="/usuario/editar" element={<Cliente/>}/>
                <Route path="/usuario/endereco/editar" element={<Endereco acao="Editar"/>}/>
                <Route path="/usuario/endereco/adicionar" element={<Endereco acao="Adicionar"/>}/>
+               <Route path="/pedido" element={<FinalizaCompra/>}/>
             
            </Routes>
         </BrowserRouter>

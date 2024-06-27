@@ -1,4 +1,4 @@
-export enum FORMA_PAGAMENTO {
+export enum STATUS {
     PENDENTE = "PENDENTE",
     PAGO = "PAGO",
     CANCELADO = "CANCELADO",

@@ -1,0 +1,27 @@
+.pagamento-form {
+    display: flex;
+    width: 80%;
+    padding: 2rem;
+    background-color: #fafafa;
+    box-shadow: 0px 0px 2px 0px #000;
+    border-radius: 10px;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pagamento-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagamento-img img {
+    width: 94%;
+}
+
+.pagamento-form-codigo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
