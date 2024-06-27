@@ -44,33 +44,35 @@ const Cartao: FC<CartaoProperties> = ({
             <>
                 <div className="pagamento-form">
                     <div className="pagamento-img">
-                        <img src="/cartao-pagamento.png" alt="" />
+                        <img src="/pagamento/cartao-pagamento.png" alt="cartao exemplo" />
                     </div>
                     <TextField
                         fullWidth
-                        value={numeroCartao}
-                        label="Número do cartão"
+
+                        value={nomeCompleto}
+                        label="Nome completo"
                         type="text"
                         onChange={(event) => {
                             if (event) {
-                                setNumeroCartao(event.target.value);
+                                setNomeCompleto(event.target.value);
                             }
                         }}
                     />
+
                     <div className="pagamento-form-codigo">
                         <TextField
                             sx={{ width: "90%" }}
-                            value={nomeCompleto}
-                            label="Nome completo"
+                            value={numeroCartao}
+                            label="Número do cartão"
                             type="text"
                             onChange={(event) => {
                                 if (event) {
-                                    setNomeCompleto(event.target.value);
+                                    setNumeroCartao(event.target.value);
                                 }
                             }}
                         />
                         <TextField
-                            sx={{ width: "10%" }}
+                            sx={{ width: "20%" }}
                             value={codigo}
                             label="Código"
                             type="text"

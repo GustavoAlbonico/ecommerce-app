@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from "react";
+import "./index.css";
 
 interface BoletoProperties {
     mostraModal: boolean,
@@ -20,7 +21,10 @@ const Boleto: FC<BoletoProperties> = ({
             open
             &&
             <>
-                BOLETO
+                <div className="container-boleto">
+                    <button>Imprimir</button>
+                    <img src="/pagamento/boleto-pagamento.svg" alt="boleto imagem" />
+                </div>
             </>
         }
     </>

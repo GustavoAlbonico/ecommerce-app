@@ -75,7 +75,7 @@ const FinalizaCompra: FC = () => {
     const defineFormaPagamento = (formaPagamento:FORMA_PAGAMENTO) => (setFormaPagamento(formaPagamento));
 
     useEffect(() => {
-
+        window.scrollTo({top:0 , behavior: 'smooth'})
     }, [mostraModalEndereco,mostraModalPagamento])
     
     return <>
@@ -91,7 +91,6 @@ const FinalizaCompra: FC = () => {
             </div>
             <div className="container-buttons-finaliza-compra">
                 <MobileStepper
-                    variant="dots"
                     steps={3}
                     position="static"
                     activeStep={etapa}
