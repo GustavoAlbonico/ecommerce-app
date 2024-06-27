@@ -1,5 +1,19 @@
-.body-card-oferta{
+.container-home-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);;
+    gap: 18px; 
+  }
+  
+  .body-card-oferta {
     display: flex;
-    margin: 10vh 10vw 0 10vw;
+    justify-content: center;
+  }
 
-}
+  .card-oferta {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card-oferta:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
