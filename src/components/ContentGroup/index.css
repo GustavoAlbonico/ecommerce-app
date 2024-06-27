@@ -1,0 +1,17 @@
+.component-content-group {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.component-content-group h4 {
+    font-weight: 400;
+}
+
+.component-content-group h4,
+.component-content-group p {
+    color: #696969;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+}
