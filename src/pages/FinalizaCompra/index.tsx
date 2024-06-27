@@ -7,17 +7,30 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import React from "react";
 import FinalizaCompraPagamento from "../../components/FinalizaCompraPagamento";
 import { useNavigate } from "react-router-dom";
+import { ICartao } from "../../components/Cartao/types";
+import { FORMA_PAGAMENTO } from "../../components/FinalizaCompraPagamento/types";
 
 const FinalizaCompra: FC = () => {
     const navigate = useNavigate();
     const [mostraModalEndereco, setMostraModalEndereco] = useState<boolean>(true);
     const [mostraModalPagamento, setMostraModalPagamento] = useState<boolean>(false);
     const [idEndereco, setIdEndereco] = useState<number>(0);
+    const [cartao, setCartao] = useState<ICartao>();
     const [etapa, setEtapa] = useState<number>(0);
+    const [formaPagamento, setFormaPagamento] = useState<FORMA_PAGAMENTO>();
     const [labelProximo, setLabelProximo] = useState<string>("Próximo");
     const theme = useTheme();
 
+    const validaCartao = ():boolean => {
+        if(!cartao?.codigo || !cartao?.nomeCompleto || !cartao?.numeroCartao){
+            return false;
+        }
+        return true;
+    }
+
     const handleNext = () => {
+
+        if(!validaCartao() && etapa === 1 && formaPagamento === FORMA_PAGAMENTO.CARTAO) return;
 
         if(idEndereco !== 0){
             setEtapa((prevActiveStep) => prevActiveStep + 1);
@@ -57,6 +70,10 @@ const FinalizaCompra: FC = () => {
 
     const buscaEnderecoId = (idEndereco: number) => (setIdEndereco(idEndereco));
 
+    const defineCartao = (cartao:ICartao) => (setCartao(cartao));
+
+    const defineFormaPagamento = (formaPagamento:FORMA_PAGAMENTO) => (setFormaPagamento(formaPagamento));
+
     useEffect(() => {
 
     }, [mostraModalEndereco,mostraModalPagamento])
@@ -66,7 +83,11 @@ const FinalizaCompra: FC = () => {
             <HeaderFinalizaCompra etapa={etapa} />
             <div className="content-finaliza">
                 <FinalizaCompraEndereco mostraModal={mostraModalEndereco} buscaEndereco={buscaEnderecoId} />
-                <FinalizaCompraPagamento mostraModal={mostraModalPagamento}/>
+                <FinalizaCompraPagamento 
+                    mostraModal={mostraModalPagamento} 
+                    buscaCartao={defineCartao}
+                    buscaFormaPagamento={defineFormaPagamento}
+                />
             </div>
             <div className="container-buttons-finaliza-compra">
                 <MobileStepper

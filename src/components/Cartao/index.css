@@ -9,6 +9,16 @@
     gap: 20px;
 }
 
+.pagamento-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagamento-img img {
+    width: 94%;
+}
+
 .pagamento-form-codigo {
     display: flex;
     justify-content: space-between;

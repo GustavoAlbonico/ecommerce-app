@@ -7,13 +7,18 @@ import { ICarrinhoStore } from "../../store/CarrinhoStore/types";
 import Cartao from "../Cartao";
 import Pix from "../Pix";
 import Boleto from "../Boleto";
+import { ICartao } from "../Cartao/types";
 
 interface FinalizaCompraPagamentoProperties {
     mostraModal: boolean,
+    buscaCartao: (cartao: ICartao) => void,
+    buscaFormaPagamento: (formaPagamento: FORMA_PAGAMENTO) => void,
 }
 
 const FinalizaCompraPagamento: FC<FinalizaCompraPagamentoProperties> = ({
     mostraModal,
+    buscaCartao,
+    buscaFormaPagamento,
 }) => {
     const [open, setOpen] = useState<boolean>(false);
     const [mostraCartao, setMostraCartao] = useState<boolean>(true);
@@ -63,10 +68,16 @@ const FinalizaCompraPagamento: FC<FinalizaCompraPagamentoProperties> = ({
         setValorTotal(Intl.NumberFormat("pt-BR", { style: 'currency', currency: 'BRL' }).format(somaTotal));
     }
 
+    const defineCartao = (cartao:ICartao) => (buscaCartao(cartao));
+
     useEffect(() => {
         mudaModal();
         calculaValorTotal();
     }, [mostraModal]);
+
+    useEffect(() => {
+       buscaFormaPagamento(formaPagamento);
+    }, [formaPagamento]);
 
     return <>
         {
@@ -94,7 +105,7 @@ const FinalizaCompraPagamento: FC<FinalizaCompraPagamentoProperties> = ({
                         </div>
                     </div>
                     <div className="content-pagamento">
-                        <Cartao mostraModal={mostraCartao} />
+                        <Cartao mostraModal={mostraCartao} buscaCartao={defineCartao}/>
                         <Pix mostraModal={mostraPix}/>
                         <Boleto mostraModal={mostraBoleto}/>
                     </div>

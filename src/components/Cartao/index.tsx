@@ -1,21 +1,41 @@
 import { FC, useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import "./index.css";
+import { ICartao } from "./types";
 
 interface CartaoProperties {
     mostraModal: boolean,
+    buscaCartao: (cartao: ICartao) => void,
 }
 
 const Cartao: FC<CartaoProperties> = ({
     mostraModal,
+    buscaCartao,
 }) => {
     const [open, setOpen] = useState<boolean>(true);
+    const [numeroCartao, setNumeroCartao] = useState<string>('');
+    const [nomeCompleto, setNomeCompleto] = useState<string>('');
+    const [codigo, setCodigo] = useState<string>('');
 
     const mudaModal = () => (mostraModal ? setOpen(true) : setOpen(false));
 
+    const construirCartao = () => {
+        const cartao: ICartao = {
+            nomeCompleto: nomeCompleto,
+            numeroCartao: numeroCartao,
+            codigo: codigo,
+        }
+
+        buscaCartao(cartao);
+    }
+
     useEffect(() => {
         mudaModal();
-    }, [mostraModal])
+    }, [mostraModal]);
+
+    useEffect(() => {
+        construirCartao();
+    }, [numeroCartao, nomeCompleto, codigo]);
 
     return <>
         {
@@ -23,40 +43,40 @@ const Cartao: FC<CartaoProperties> = ({
             &&
             <>
                 <div className="pagamento-form">
-                    <div>
-                        <img src="/dominion.png" alt="" />
+                    <div className="pagamento-img">
+                        <img src="/cartao-pagamento.png" alt="" />
                     </div>
                     <TextField
                         fullWidth
-                        // value={dataNascimento}
-                        label="Data de Nascimento"
-                        type="date"
+                        value={numeroCartao}
+                        label="Número do cartão"
+                        type="text"
                         onChange={(event) => {
                             if (event) {
-                                // setDataNascimento(event.target.value);
+                                setNumeroCartao(event.target.value);
                             }
                         }}
                     />
                     <div className="pagamento-form-codigo">
                         <TextField
-                            fullWidth
-                            // value={email}
-                            label="E-mail"
-                            type="mail"
+                            sx={{ width: "90%" }}
+                            value={nomeCompleto}
+                            label="Nome completo"
+                            type="text"
                             onChange={(event) => {
                                 if (event) {
-                                    // setEmail(event.target.value);
+                                    setNomeCompleto(event.target.value);
                                 }
                             }}
                         />
                         <TextField
-                            fullWidth
-                            // value={telefone}
-                            label="Telefone"
+                            sx={{ width: "10%" }}
+                            value={codigo}
+                            label="Código"
                             type="text"
                             onChange={(event) => {
                                 if (event) {
-                                    // setTelefone(event.target.value);
+                                    setCodigo(event.target.value);
                                 }
                             }}
                         />
