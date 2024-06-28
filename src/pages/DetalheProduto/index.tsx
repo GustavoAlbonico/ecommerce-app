@@ -4,6 +4,7 @@ import CarouselDetalhes from "../../components/CarouselDetalhes";
 import InputQuantidade from "../../components/InputQuantidade";
 import BotaoPadrao from "../../components/BotaoPadrao";
 
+//commit branch
 const DetalheProduto: FC = () => {
   const [quantidadeProduto, setQuantidadeProduto] = useState<number>(1);
   return (
