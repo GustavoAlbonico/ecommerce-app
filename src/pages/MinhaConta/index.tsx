@@ -8,9 +8,10 @@ import { STATUS_CODE, apiGet } from "../../api/RestClient"
 import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore"
 import MensagemModal from "../../components/MensagemModal"
 import { AlertColor } from "@mui/material"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 const MinhaConta: FC = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const { state } = location;
     const [cliente, setCliente] = useState<ICliente>();
@@ -45,6 +46,7 @@ const MinhaConta: FC = () => {
         if(state){
             setEstadoModal(state.estadoModal);
             setMensagemModal([state.msgModal]);
+            navigate(location.pathname, { replace: true, state: null });
         }
     }
 

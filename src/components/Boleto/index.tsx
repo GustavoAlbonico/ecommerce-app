@@ -11,11 +11,13 @@ import { Button } from "@mui/material";
 interface BoletoProperties {
     mostraModal: boolean,
     valorTotal: string,
+    buscaBoletoDataVencimento: (buscaBoletoDataVencimento:string) => void,
 }
 
 const Boleto: FC<BoletoProperties> = ({
     mostraModal,
     valorTotal,
+    buscaBoletoDataVencimento,
 }) => {
     const [open, setOpen] = useState<boolean>(true);
     const componentRef = useRef<HTMLDivElement>(null);
@@ -37,6 +39,8 @@ const Boleto: FC<BoletoProperties> = ({
         }
     };
 
+    const defineBoletoDataVencimento = (dataBoletoVencimento:string) => (buscaBoletoDataVencimento(dataBoletoVencimento));
+
     useEffect(() => {
         mudaModal();
     }, [mostraModal])
@@ -54,7 +58,7 @@ const Boleto: FC<BoletoProperties> = ({
                             content={() => componentRef.current}
                         />
                     </div>
-                    <BoletoImprimir valorTotal={valorTotal} ref={componentRef} />
+                    <BoletoImprimir valorTotal={valorTotal} ref={componentRef} buscaBoletoDataVencimento={defineBoletoDataVencimento} />
                     <p>Caso o pagamento não seja efetuado o pedido ira ser cancelado automaticamente.</p>
                 </div>
             </>

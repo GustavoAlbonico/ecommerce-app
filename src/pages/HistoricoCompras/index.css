@@ -24,6 +24,6 @@
 .container-card-pedido {
     display: grid;
     grid-template-columns: repeat(2,50%);
-    grid-template-rows: 285px;
+    grid-template-rows: 280px;
     gap: 2rem;
 }

@@ -12,12 +12,14 @@ import { ICartao } from "../Cartao/types";
 interface FinalizaCompraPagamentoProperties {
     mostraModal: boolean,
     buscaCartao: (cartao: ICartao) => void,
+    buscaBoletoDataVencimento: (buscaBoletoDataVencimento:string) => void,
     buscaFormaPagamento: (formaPagamento: FORMA_PAGAMENTO) => void,
 }
 
 const FinalizaCompraPagamento: FC<FinalizaCompraPagamentoProperties> = ({
     mostraModal,
     buscaCartao,
+    buscaBoletoDataVencimento,
     buscaFormaPagamento,
 }) => {
     const [open, setOpen] = useState<boolean>(false);
@@ -70,6 +72,8 @@ const FinalizaCompraPagamento: FC<FinalizaCompraPagamentoProperties> = ({
 
     const defineCartao = (cartao:ICartao) => (buscaCartao(cartao));
 
+    const defineBoletoDataVencimento = (dataBoletoVencimento:string) => (buscaBoletoDataVencimento(dataBoletoVencimento));
+
     useEffect(() => {
         mudaModal();
         calculaValorTotal();
@@ -107,7 +111,7 @@ const FinalizaCompraPagamento: FC<FinalizaCompraPagamentoProperties> = ({
                     <div className="content-pagamento">
                         <Cartao mostraModal={mostraCartao} buscaCartao={defineCartao}/>
                         <Pix mostraModal={mostraPix}/>
-                        <Boleto mostraModal={mostraBoleto} valorTotal={valorTotal || ""}/>
+                        <Boleto mostraModal={mostraBoleto} valorTotal={valorTotal || ""} buscaBoletoDataVencimento={defineBoletoDataVencimento}/>
                     </div>
                 </div>
             </>

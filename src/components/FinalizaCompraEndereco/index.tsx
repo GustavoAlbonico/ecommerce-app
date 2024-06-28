@@ -7,16 +7,20 @@ import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
 import MensagemModal from "../MensagemModal";
 import { AlertColor } from "@mui/material";
 import "./index.css";
+import { useNavigate } from "react-router-dom";
 
 interface FinalizaCompraEnderecoProperties {
     mostraModal: boolean,
     buscaEndereco: (idEndereco:number) => void
+    buscaCliente: (idCliente:number) => void
 }
 
 const FinalizaCompraEndereco: FC<FinalizaCompraEnderecoProperties> = ({
     mostraModal,
-    buscaEndereco
+    buscaEndereco,
+    buscaCliente
 }) => {
+    const navigate = useNavigate();
     const [open, setOpen] = useState<boolean>(false);
     const [enderecos, setEnderecos] = useState<IEndereco[]>([]);
     const [estadoModal, setEstadoModal] = useState<boolean>(false);
@@ -31,9 +35,14 @@ const FinalizaCompraEndereco: FC<FinalizaCompraEnderecoProperties> = ({
         const response = await apiGet(`cliente/carregar/usuario/${usuarioSessao.id}`);
 
         if (response.status === STATUS_CODE.OK) {
+            buscaCliente(response.data.id)
             setEnderecos(response.data.enderecos);
             return;
         }
+
+        // if(response.status === STATUS_CODE.FORBIDDEN){//redireciona para o login
+        //     navigate("/home");
+        // }
 
         setEstadoModal(true);
         setMensagemModal(["Erro Inesperado ao buscar endereços!"]);
@@ -53,7 +62,7 @@ const FinalizaCompraEndereco: FC<FinalizaCompraEnderecoProperties> = ({
         }
 
         mudaModal();
-    }, [mostraModal])
+    }, [mostraModal]);
 
     return <>
         {
