@@ -24,23 +24,32 @@ const FinalizaCompraFinalizada: FC<FinalizaCompraFinalizadaProperties> = ({
     return <>
         {
             open
-            && <>
-                <div className="container-card-compra-finalizada">
-                    {pedido?.listaPedidoItem.map((pedidoItem: IPedidoItem) => {
-                        return <>
-                            <CardPedido
-                                status={pedido.status}
-                                endereco={pedido.enderecoApelido}
-                                formaPagamento={pedido.formaPagamento}
-                                quantidade={pedidoItem.quantidade}
-                                valorTotal={pedidoItem.valorTotal}
-                                nomeProduto={pedidoItem.produto.nome}
-                                descricaoProduto={pedidoItem.produto.descricao}
-                                imagemProduto={pedidoItem.produto.imagem}
-                            />
-                        </>
-                    })}
-                </div>
+            && <>{
+                pedido
+                    ? <>
+                        <div className="container-card-compra-finalizada">
+                            {pedido?.listaPedidoItem.map((pedidoItem: IPedidoItem) => {
+                                return <>
+                                    <CardPedido
+                                        status={pedido.status}
+                                        endereco={pedido.enderecoApelido}
+                                        formaPagamento={pedido.formaPagamento}
+                                        quantidade={pedidoItem.quantidade}
+                                        valorTotal={pedidoItem.valorTotal}
+                                        nomeProduto={pedidoItem.produto.nome}
+                                        descricaoProduto={pedidoItem.produto.descricao}
+                                        imagemProduto={pedidoItem.produto.imagem}
+                                    />
+                                </>
+                            })}
+                        </div>
+                    </> 
+                    :<>
+                        <div className="container-erro-message">
+                            <img src="/compra-finalizada-erro.svg" alt="erro inesperado" />
+                        </div>
+                    </>
+                }
             </>
         }
     </>
