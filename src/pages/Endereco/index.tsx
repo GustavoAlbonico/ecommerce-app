@@ -47,50 +47,63 @@ const Endereco: FC<EnderecoProperties> = ({
             const response = await apiPut(`/endereco/atualizar/${urlParametro.get("idEndereco")}`, endereco)
 
             if (response.status === STATUS_CODE.OK) {
-                navigate("/usuario/minhaconta",{ state:{
-                    estadoModal: true, 
-                    msgModal:"Endereço editado com sucesso!"
-                    } 
+                navigate("/usuario/minhaconta", {
+                    state: {
+                        estadoModal: true,
+                        msgModal: "Endereço editado com sucesso!"
+                    }
                 });
             }
 
-            if(response.status === STATUS_CODE.INTERNAL_SERVER_ERROR){
-                 setEstadoModal(true);
-                 setMensagemModal(["Erro Inesperado!"]);
-                 setCorModal("error");
-            }
-
-            if(response.status === STATUS_CODE.BAD_REQUEST){
+            if (response.status === STATUS_CODE.INTERNAL_SERVER_ERROR) {
                 setEstadoModal(true);
-                 setMensagemModal(response.messages);
-                 setCorModal("error");
+                setMensagemModal(["Erro Inesperado!"]);
+                setCorModal("error");
             }
 
-           
+            if (response.status === STATUS_CODE.BAD_REQUEST) {
+                setEstadoModal(true);
+                setMensagemModal(response.messages);
+                setCorModal("error");
+            }
+
+            if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
+                navigate("/usuario/login");
+                return;
+            }
+
             return;
         }
 
         const response = await apiPost("/endereco/criar", endereco);
 
         if (response.status === STATUS_CODE.CREATED) {
-            navigate("/usuario/minhaconta",{ state:{
-                estadoModal: true, 
-                msgModal:"Endereço cadastrado com sucesso!"
-                } 
+            navigate("/usuario/minhaconta", {
+                state: {
+                    estadoModal: true,
+                    msgModal: "Endereço cadastrado com sucesso!"
+                }
             });
         }
 
-        if(response.status === STATUS_CODE.INTERNAL_SERVER_ERROR){
+        if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
+            navigate("/usuario/login");
+            return;
+        }
+
+        if (response.status === STATUS_CODE.INTERNAL_SERVER_ERROR) {
             setEstadoModal(true);
             setMensagemModal(["Erro Inesperado!"]);
             setCorModal("error");
         }
 
-       if(response.status === STATUS_CODE.BAD_REQUEST){
+        if (response.status === STATUS_CODE.BAD_REQUEST) {
             setEstadoModal(true);
             setMensagemModal(response.messages);
             setCorModal("warning");
-       }
+        }
+
+        
 
     }
 
@@ -114,7 +127,7 @@ const Endereco: FC<EnderecoProperties> = ({
 
 
     useEffect(() => {
-        setUsuarioSessao(buscaUsuarioSessao);
+        setUsuarioSessao(buscaUsuarioSessao());
 
         if (acao === "Editar") {
             buscaEnderecoPorId();

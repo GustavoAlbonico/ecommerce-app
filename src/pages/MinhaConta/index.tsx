@@ -35,6 +35,11 @@ const MinhaConta: FC = () => {
                 return;
             }
 
+            if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
+                navigate("/usuario/login");
+                return;
+            }
+
             setEstadoModal(true);
             setMensagemModal(["Erro inesperado!"]);
             setCorModal("error");

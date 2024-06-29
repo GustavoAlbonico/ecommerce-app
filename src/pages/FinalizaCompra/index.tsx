@@ -12,7 +12,7 @@ import { FORMA_PAGAMENTO } from "../../components/FinalizaCompraPagamento/types"
 import { buscaItensCarrinho, limpaCarrinho } from "../../store/CarrinhoStore/carrinhoStore";
 import FinalizaCompraFinalizada from "../../components/FinalizaCompraFinalizada";
 import { STATUS_CODE, apiPost } from "../../api/RestClient";
-import { FORMA_PAGAMENTO_POST, IBoletoPost, ICartaoPost, IPedidoItemPost, IPedidoPost, IPixPost } from "./types";
+import {IDadosFormaPagamento, IPedidoItemPost, IPedidoPost} from "./types";
 import { STATUS } from "../../components/CardPedido/types";
 import MensagemModal from "../../components/MensagemModal";
 import { IPedido } from "../HistoricoCompras/types";
@@ -25,7 +25,6 @@ const FinalizaCompra: FC = () => {
     const [idEndereco, setIdEndereco] = useState<number>(0);
     const [idCliente, setIdCliente] = useState<number>(0);
     const [cartao, setCartao] = useState<ICartao>();
-    const [boletoDataVencimento, setBoletoDataVencimento] = useState<string>('');
     const [etapa, setEtapa] = useState<number>(0);
     const [formaPagamento, setFormaPagamento] = useState<FORMA_PAGAMENTO>();
     const [labelProximo, setLabelProximo] = useState<string>("Próximo");
@@ -43,82 +42,6 @@ const FinalizaCompra: FC = () => {
         return true;
     }
 
-    const salvaFormaPagamento = async (idPedido: number, valorTotal: number, formaPagamento: FORMA_PAGAMENTO_POST) => {
-
-        switch (formaPagamento) {
-            case FORMA_PAGAMENTO_POST.PIX:
-
-                const pixPost: IPixPost = {
-                    valor: valorTotal,
-                    pedido_id: idPedido,
-                }
-
-                const responsePix = await apiPost("/pix/criar", pixPost);
-
-                if (responsePix.status === STATUS_CODE.BAD_REQUEST) {
-                    setEstadoModal(true);
-                    setMensagemModal(responsePix.messages);
-                    setCorModal("error");
-                }
-
-                if (responsePix.status === STATUS_CODE.INTERNAL_SERVER_ERROR) {
-                    setEstadoModal(true);
-                    setMensagemModal(["Erro inesperado!"]);
-                    setCorModal("error");
-                }
-
-                break;
-            case FORMA_PAGAMENTO_POST.BOLETO:
-
-                const boletoPost:IBoletoPost = {
-                    dataVencimento: boletoDataVencimento,
-                    valor: valorTotal,
-                    pedido_id: idPedido,
-                }
-                
-                const responseBoleto = await apiPost("/boleto/criar", boletoPost);
-
-                if (responseBoleto.status === STATUS_CODE.BAD_REQUEST) {
-                    setEstadoModal(true);
-                    setMensagemModal(responseBoleto.messages);
-                    setCorModal("error");
-                }
-
-                if (responseBoleto.status === STATUS_CODE.INTERNAL_SERVER_ERROR) {
-                    setEstadoModal(true);
-                    setMensagemModal(["Erro inesperado!"]);
-                    setCorModal("error");
-                }
-
-                break;
-            case FORMA_PAGAMENTO_POST.CARTAO:
-
-                const cartaoPost: ICartaoPost = {
-                    numeroCartao: cartao?.numeroCartao || '',
-                    nomeTitular: cartao?.nomeCompleto || '',
-                    codigoSeguranca: cartao?.codigo || '',
-                    valor: valorTotal,
-                    pedido_id: idPedido,
-                }
-
-                const responseCartao = await apiPost("/cartao/criar", cartaoPost);
-
-                if (responseCartao.status === STATUS_CODE.BAD_REQUEST) {
-                    setEstadoModal(true);
-                    setMensagemModal(responseCartao.messages);
-                    setCorModal("error");
-                }
-
-                if (responseCartao.status === STATUS_CODE.INTERNAL_SERVER_ERROR) {
-                    setEstadoModal(true);
-                    setMensagemModal(["Erro inesperado!"]);
-                    setCorModal("error");
-                }
-
-                break;
-        }
-    }
-
     const salvaPedido = async () => {
 
         const itensCarrinho = buscaItensCarrinho();
@@ -129,20 +52,26 @@ const FinalizaCompra: FC = () => {
             produto_id: item.id
         }));
 
+        const dadosFormaPagamento:IDadosFormaPagamento = {
+            numeroCartao: cartao?.numeroCartao,
+            nomeTitular: cartao?.nomeCompleto,
+            codigoSeguranca: cartao?.codigo,
+        }
+
         const pedidoPost: IPedidoPost = {
             formaPagamento: formaPagamento?.toUpperCase() || '',
             status: STATUS.PENDENTE,
             endereco_id: idEndereco,
             cliente_id: idCliente,
+            dadosFormaPagamento:dadosFormaPagamento,
             listaPedidoItem: pedidoItemPost
         }
 
-        const response = await apiPost("/pedido/criar", pedidoPost);
+        const response = await apiPost('/pedido/criar', pedidoPost);
 
         if (response.status === STATUS_CODE.CREATED) {
             limpaCarrinho();
-            setPedido(response.data)
-            salvaFormaPagamento(response.data.id, response.data.valorTotal, response.data.formaPagamento);
+            setPedido(response.data);
         }
 
         if (response.status === STATUS_CODE.BAD_REQUEST) {
@@ -216,8 +145,6 @@ const FinalizaCompra: FC = () => {
 
     const defineCartao = (cartao: ICartao) => (setCartao(cartao));
 
-    const defineBoletoDataVencimento = (dataBoletoVencimento: string) => (setBoletoDataVencimento(dataBoletoVencimento));
-
     const defineFormaPagamento = (formaPagamento: FORMA_PAGAMENTO) => (setFormaPagamento(formaPagamento));
 
     useEffect(() => {
@@ -225,7 +152,7 @@ const FinalizaCompra: FC = () => {
     }, []);
 
     useEffect(() => {
-        window.scrollTo({ top: 170, behavior: 'smooth' })
+        window.scrollTo({ top: 100, behavior: 'smooth' })
     }, [mostraModalEndereco, mostraModalPagamento, mostraModalCompraFinalizada]);
 
     return <>
@@ -248,7 +175,6 @@ const FinalizaCompra: FC = () => {
                 <FinalizaCompraPagamento
                     mostraModal={mostraModalPagamento}
                     buscaCartao={defineCartao}
-                    buscaBoletoDataVencimento={defineBoletoDataVencimento}
                     buscaFormaPagamento={defineFormaPagamento}
                 />
                 <FinalizaCompraFinalizada 

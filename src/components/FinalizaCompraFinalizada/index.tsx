@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { IPedido, IPedidoItem } from "../../pages/HistoricoCompras/types";
 import "./index.css";
 import CardPedido from "../CardPedido";
+import CheckIcon from '@mui/icons-material/Check';
 
 interface FinalizaCompraFinalizadaProperties {
     mostraModal: boolean,
@@ -27,6 +28,10 @@ const FinalizaCompraFinalizada: FC<FinalizaCompraFinalizadaProperties> = ({
             && <>{
                 pedido
                     ? <>
+                        <div className="header-compra-finalizada">
+                            <CheckIcon sx={{fontSize: "2.2rem" }} fontSize="inherit" />
+                            <span>Compra Finalizada</span>
+                        </div>
                         <div className="container-card-compra-finalizada">
                             {pedido?.listaPedidoItem.map((pedidoItem: IPedidoItem) => {
                                 return <>
@@ -43,13 +48,13 @@ const FinalizaCompraFinalizada: FC<FinalizaCompraFinalizadaProperties> = ({
                                 </>
                             })}
                         </div>
-                    </> 
-                    :<>
+                    </>
+                    : <>
                         <div className="container-erro-message">
                             <img src="/compra-finalizada-erro.svg" alt="erro inesperado" />
                         </div>
                     </>
-                }
+            }
             </>
         }
     </>

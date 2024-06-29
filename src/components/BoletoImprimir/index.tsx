@@ -5,10 +5,9 @@ import { toZonedTime } from 'date-fns-tz';
 
 interface BoletoImprimir {
     valorTotal:string,
-    buscaBoletoDataVencimento: (buscaBoletoDataVencimento:string) => void,
 }
 
-const BoletoImprimir = React.forwardRef<HTMLDivElement,BoletoImprimir>(({valorTotal,buscaBoletoDataVencimento}, ref) => {
+const BoletoImprimir = React.forwardRef<HTMLDivElement,BoletoImprimir>(({valorTotal}, ref) => {
     const [dataAtual, setDataAtual] = useState<string>();
 
     const buscaDataAtual = () => {
@@ -17,10 +16,6 @@ const BoletoImprimir = React.forwardRef<HTMLDivElement,BoletoImprimir>(({valorTo
         const dataZona = toZonedTime(dataAtualHoje, zona);
         dataZona.setDate(dataZona.getDate() + 1);
         const dataFormatada = format(dataZona, 'dd/MM/yyyy');
-
-        const dataBancoDados:string = format(dataZona, 'yyyy-MM-dd');
-
-        buscaBoletoDataVencimento(dataBancoDados);
 
         setDataAtual(dataFormatada);
     }

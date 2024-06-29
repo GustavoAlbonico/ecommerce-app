@@ -5,6 +5,7 @@ export interface IPedidoPost {
   status:STATUS,
   endereco_id:number,
   cliente_id:number,
+  dadosFormaPagamento:IDadosFormaPagamento,
   listaPedidoItem:IPedidoItemPost[],
 }
 
@@ -14,27 +15,8 @@ export interface IPedidoItemPost {
     produto_id:number,
 }
 
-export interface IPixPost {
-    valor:number,
-    pedido_id:number,
-}
-
-export interface ICartaoPost {
-    numeroCartao:string,
-    nomeTitular:string,
-    codigoSeguranca:string,
-    valor:number,
-    pedido_id:number,
-}
-
-export interface IBoletoPost {
-    dataVencimento:string,
-    valor:number,
-    pedido_id:number,
-}
-
-export enum FORMA_PAGAMENTO_POST {
-    CARTAO = "CARTAO",
-    PIX = "PIX",
-    BOLETO = "BOLETO",
+export interface IDadosFormaPagamento {
+    numeroCartao?:string,
+    nomeTitular?:string,
+    codigoSeguranca?:string,
 }
