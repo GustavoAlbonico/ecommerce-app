@@ -1,0 +1,32 @@
+.container-pix {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* gap: 20px; */
+}
+
+.container-pix img {
+    width: 50%;
+    height: 50%;
+}
+
+
+.container-pix h3 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.pix-info {
+    width: 100%;
+    text-align: center;
+}
+
+.pix-info span {
+    font-size: 0.9rem;
+}
+
+.pix-info p {
+    color: #a0a0a0;
+    font-size: 0.8rem;
+}

@@ -1,0 +1,165 @@
+.body-boleto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem;
+    max-width: 900px;
+}
+
+.boleto-imprimir-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.boleto-imprimir-header h4,
+.boleto-imprimir-header p {
+    margin: 0;
+}
+
+.boleto-imprimir-header p {
+    font-size: 0.8rem;
+}
+
+.boleto-imprimir-logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.boleto-imprimir-logo img {
+    width: 24px;
+}
+
+.container-boleto-imprimir {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #000;
+}
+
+.container-boleto-imprimir p,
+.container-boleto-imprimir span {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+
+.container-boleto-imprimir p,
+.container-boleto-imprimir span {
+    font-size: 10px;
+}
+
+.boleto-imprimir-content {
+    width: 100%;
+    display: flex;
+
+}
+
+.boleto-imprimir-left {
+    width: 80%;
+}
+
+.boleto-imprimir-left>div {
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1px;
+}
+
+.boleto-imprimir-left> :nth-child(1) {
+    border-bottom: 1px solid #000;
+}
+
+.list-left> :nth-child(n+1):nth-child(-n+5) {
+    border-bottom: none;
+}
+
+.list-left> :nth-child(5) {
+    border-right: none;
+}
+
+.list-left> :nth-child(10) {
+    border-right: none;
+}
+
+.list-left {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 30% 10% 20% 20% 20%;
+    margin: 0;
+    padding: 0;
+}
+
+.list-left li {
+    padding: 0 1px;
+    height: 30px;
+    border: 1px solid #000;
+    border-left: none;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.boleto-imprimir-right {
+    width: 20%;
+}
+
+.list-right {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list-right li {
+    padding: 0 1px;
+    display: flex;
+    flex-direction: column;
+    height: 30px;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+}
+
+.list-right :nth-child(9) {
+    border-bottom: none;
+}
+
+
+.boleto-imprimir-footer {
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    border-top: 1px solid #000;
+    width: 100%;
+}
+
+.boleto-imprimir-footer span {
+    text-align: left;
+}
+
+.boleto-imprimir-cod {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+.boleto-imprimir-cod img {
+    padding: 0.5rem 0px;
+}
+
+.boleto-imprimir-cod > div {
+    width: 100%;
+}
+
+.boleto-imprimir-cod > div > p {
+    margin: 0;
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+}

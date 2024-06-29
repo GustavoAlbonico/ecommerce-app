@@ -107,7 +107,7 @@ const FinalizaCompraPagamento: FC<FinalizaCompraPagamentoProperties> = ({
                     <div className="content-pagamento">
                         <Cartao mostraModal={mostraCartao} buscaCartao={defineCartao}/>
                         <Pix mostraModal={mostraPix}/>
-                        <Boleto mostraModal={mostraBoleto}/>
+                        <Boleto mostraModal={mostraBoleto} valorTotal={valorTotal || ""}/>
                     </div>
                 </div>
             </>
