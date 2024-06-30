@@ -4,18 +4,33 @@ import CardOferta from "../../components/CardOferta";
 import Carousel from "../../components/Carousel/inde";
 import ShapeDivider from "../../components/ShapeDivider";
 import Categorias from "../../components/Categorias";
-import { atualizaItensCarrinhoStore } from "../../store/CarrinhoStore/carrinhoStore";
-import { adicionaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
 import { ICarrinhoStore } from "../../store/CarrinhoStore/types";
 import { IUsuarioStore } from "../../store/UsuarioStore/types";
 import "./index.css";
 import { useParams } from "react-router-dom";
-import { IProduto } from "../../components/CardOferta/types";
 import { CATEGORIA } from "./types";
+import { AlertColor } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
+import MensagemModal from "../../components/MensagemModal";
+        
 
 const Home: FC = () => {
   const { categoria } = useParams();
   const [titulo, setTitulo] = useState<string>("Oferta");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { state } = location;
+  const [estadoModal, setEstadoModal] = useState<boolean>(false);
+  const [mensagemModal, setMensagemModal] = useState<string[]>([]);
+  const [corModal, setCorModal] = useState<AlertColor>("warning");
+    
+  const showMensagemModal = () => {
+    if (state) {
+      setEstadoModal(state.estadoModal);
+      setMensagemModal([state.msgModal]);
+      navigate(location.pathname, { replace: true, state: null });
+    }
+  }
 
   const mudaTitulo = () => {
     switch (categoria) {
@@ -36,22 +51,20 @@ const Home: FC = () => {
 
   useEffect(() => {
     mudaTitulo();
-  },[])
+    showMensagemModal();
+  },[]);
 
-  useEffect(() => {
-    const usuario: IUsuarioStore = {
-      id: 1,
-      login: "robertinha furacão",
-      token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdG9yZS1wYW5kb3JhLWFwaSIsInN1YiI6ImFsaWNlIiwiZXhwIjoxNzE5NjE5MzU2fQ.PxTs6d48U_QtTDUoIG487iaRN1YQkX77eKPEWtlTUW0",
-    };
-
-    
-    adicionaUsuarioSessao(usuario);
-  }, []);
 
   return (
     <>
+      <MensagemModal
+        estadoInicial={estadoModal}
+        corModal={corModal}
+        mensagem={mensagemModal}
+        onClose={() => {
+          setEstadoModal(false);
+        }}
+      />
       <div className="home-body">
         <Carousel />
         <ShapeDivider />

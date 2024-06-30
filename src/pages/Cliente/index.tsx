@@ -23,20 +23,21 @@ const Cliente: FC = () => {
     const [corModal, setCorModal] = useState<AlertColor>("success");
 
     const buscaClientePorId = async () => {
-        const usuarioSessao = buscaUsuarioSessao();
 
-        if (usuarioSessao.login) {
-            setUsuarioSessao(usuarioSessao);
+        const response = await apiGet(`/cliente/carregar/${urlParametro.get('idCliente')}`);
 
-            const response = await apiGet(`/cliente/carregar/${urlParametro.get('idCliente')}`);
-
-            if (response.status === STATUS_CODE.OK) {
-                setDataNascimento(response.data.dataNascimento);
-                setEmail(response.data.email);
-                setTelefone(response.data.telefone);
-                setNome(response.data.nome);
-            }
+        if (response.status === STATUS_CODE.OK) {
+            setDataNascimento(response.data.dataNascimento);
+            setEmail(response.data.email);
+            setTelefone(response.data.telefone);
+            setNome(response.data.nome);
         }
+
+        if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
+            navigate("/usuario/login");
+            return;
+        }
+
     }
 
     const editarCliente = async () => {
@@ -52,10 +53,11 @@ const Cliente: FC = () => {
         const response = await apiPut(`/cliente/atualizar/${urlParametro.get('idCliente')}`, cliente);
 
         if (response.status === STATUS_CODE.OK) {
-            navigate("/usuario/minhaconta",{ state:{
-                estadoModal: true, 
-                msgModal:"Perfil editado com sucesso!"
-                } 
+            navigate("/usuario/minhaconta", {
+                state: {
+                    estadoModal: true,
+                    msgModal: "Perfil editado com sucesso!"
+                }
             });
         }
 
@@ -70,6 +72,11 @@ const Cliente: FC = () => {
             setMensagemModal(response.messages);
             setCorModal("warning");
         }
+
+        if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
+            navigate("/usuario/login");
+            return;
+        }
     }
 
     const redirecionamento = () => {
@@ -77,6 +84,7 @@ const Cliente: FC = () => {
     }
 
     useEffect(() => {
+        setUsuarioSessao(buscaUsuarioSessao());
         buscaClientePorId();
     }, []);
 

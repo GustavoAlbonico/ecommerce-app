@@ -1,0 +1,21 @@
+.container-boleto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-boleto button {
+    align-self: start;
+}
+
+.container-boleto > p {
+    color: #a0a0a0;
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.container-boleto-buttons {
+    display: flex;
+    gap: 2rem;
+}

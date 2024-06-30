@@ -57,8 +57,9 @@
 
 .card-pedido-produto img{
  width: 48%;
- height: 148px;
- /* object-fit:cover; */
+ height: 142px;
+ min-width: 48%;
+ /* object-fit: cover; */
  border-radius: 10px;
 }
 

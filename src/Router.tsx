@@ -7,6 +7,7 @@ import Cliente from "./pages/Cliente";
 import Endereco from "./pages/Endereco";
 import FinalizaCompra from "./pages/FinalizaCompra";
 import DetalheProduto from "./pages/DetalheProduto";
+import BoletoImprimir from "./components/BoletoImprimir";
 
 const Router: FC = () => {
   

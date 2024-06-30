@@ -15,17 +15,17 @@ const Aside: FC<AsideProperties> = ({
     return <>
         <aside className="container-aside-minha-conta">
             <div className="usuario-sessao">
-                <AccountCircleIcon/>
+                <AccountCircleIcon sx={{color:"#803EA0"}}/>
                 <h4>{usuarioNome}</h4>
             </div>
             <ul className="list-options-minha-conta">
                 <Li titulo="Suas Informações"
                     rota="minhaconta"
-                    icon={<PersonIcon/>}
+                    icon={<PersonIcon sx={{color:"#803EA0"}}/>}
                 />
                 <Li titulo="Histórico de compras"
                     rota="pedidos"
-                    icon={<ShoppingCartIcon/>}
+                    icon={<ShoppingCartIcon sx={{color:"#803EA0"}}/>}
                 />
             </ul>
         </aside>

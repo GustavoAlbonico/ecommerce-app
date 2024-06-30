@@ -20,13 +20,12 @@ const HeaderFinalizaCompra: FC<HeaderFinalizaCompraProperties> = ({
 
     return <>
         <header className="finaliza-compra-header">
-            <h2>Finalizar Compra</h2>
             <div className="etapas">
-                <Box sx={{ width: '100%' }}>
+                <Box sx={{ width: '100%'}}>
                     <Stepper activeStep={etapa} alternativeLabel>
                         {steps.map((label) => (
                             <Step key={label}>
-                                <StepLabel >{label}</StepLabel>
+                                <StepLabel>{label}</StepLabel>
                             </Step>
                         ))}
                     </Stepper>

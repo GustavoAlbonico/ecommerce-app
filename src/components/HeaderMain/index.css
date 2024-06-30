@@ -1,0 +1,29 @@
+.header-main {
+    display: flex;
+    align-items: center;
+    padding: 0 20px 10px;
+    justify-content: space-between;
+}
+
+.options-header {
+    width: 38%;
+    display: flex;
+    align-items: center;
+    gap: 50%;
+    justify-content: space-around;
+}
+
+.disabled-carrinho {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.header-main > a {
+   display: flex;
+   width: 100px;
+}
+
+.header-main > a img{
+    margin-left: 12px;
+    width: 100px;
+}

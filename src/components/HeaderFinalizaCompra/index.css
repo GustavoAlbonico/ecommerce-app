@@ -2,13 +2,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-top: 3rem;
 }
 
-.finaliza-compra-header h2 {
-    text-align: center;
-    font-size: 2.2rem;
-    font-weight: 500;
-}
 
 .etapas svg{
     width: 40px;

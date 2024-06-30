@@ -1,0 +1,15 @@
+.div-login {
+    display: flex;
+    margin: 10px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.div-login-linha {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    text-align: center;
+    font-size: 14px;
+}
