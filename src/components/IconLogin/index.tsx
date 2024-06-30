@@ -8,6 +8,7 @@ import SimpleLogin from "../SimpleLogin";
 import { toZonedTime } from "date-fns-tz";
 import SimpleMinhaConta from "../SimpleMinhaConta";
 import PersonIcon from '@mui/icons-material/Person';
+import { useLocation } from "react-router-dom";
 
 const IconeLogin: FC = () => {
     const [openPopover, setOpenpopover] = useState<boolean>(false);

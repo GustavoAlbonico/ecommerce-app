@@ -6,4 +6,5 @@ export interface IProduto{
     descricao: string,
     classificacaoIndicativa: string,
     numeroJogadores: string,
+    quantidadeEstoque: number,
 }

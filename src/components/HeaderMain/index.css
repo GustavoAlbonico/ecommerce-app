@@ -3,12 +3,10 @@
     width: 100vw;
     position: fixed;
     background-color: #fffffff5;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
-    padding: 0 20px 0px;
+    padding: 5px 0;
 }
 
 .options-header {
@@ -30,4 +28,5 @@
 
 .header-main > a img{
     width: 100px;
+    margin-left: 22px;
 }

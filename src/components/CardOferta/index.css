@@ -22,3 +22,8 @@
     display: grid;
     grid-template-rows: 1fr;
   }
+
+  .disabled-card-oferta {
+    opacity: 0.5;
+    pointer-events: none;
+  }
