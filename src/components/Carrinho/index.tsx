@@ -101,7 +101,7 @@ const Carrinho: FC = () => {
                 {carrinho?.map((item: ICarrinhoStore) => {
                     return <>
                         <div className="card-carrinho">
-                            <img src={window.origin + "/" + item.imagem} alt={item.nome} />
+                            <img src={window.origin + "/produtos/" + item.imagem} alt={item.nome} />
                             <p id="nomeProduto" title={item.nome}>{item.nome}</p>
                             <p>{transformaValorReais(item.valorUnitario)}</p>
                             <div>

@@ -5,12 +5,14 @@ import HeaderMain from "./components/HeaderMain";
 
 function App() {
 
-  const verificaRota = ():boolean => (window.location.pathname === "/pedido" ? true : false);
+  const verificaRota = (): boolean => (window.location.pathname === "/pedido" ? true : false);
 
   return (
-    <div className="body"> 
-      <HeaderMain disabledCarrinho={verificaRota()}/>
-      <Router />
+    <div className="body">
+      <HeaderMain disabledCarrinho={verificaRota()} />
+      <div style={{marginTop:"65px"}}>
+        <Router />
+      </div>
     </div>
   );
 }

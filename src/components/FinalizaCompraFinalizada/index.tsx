@@ -43,7 +43,7 @@ const FinalizaCompraFinalizada: FC<FinalizaCompraFinalizadaProperties> = ({
                                         valorTotal={pedidoItem.valorTotal}
                                         nomeProduto={pedidoItem.produto.nome}
                                         descricaoProduto={pedidoItem.produto.descricao}
-                                        imagemProduto={pedidoItem.produto.imagem}
+                                        imagemProduto={`produtos/${pedidoItem.produto.imagem}`}
                                     />
                                 </>
                             })}

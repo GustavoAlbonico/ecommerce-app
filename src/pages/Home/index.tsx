@@ -10,7 +10,7 @@ import { CATEGORIA } from "./types";
 import { AlertColor } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import MensagemModal from "../../components/MensagemModal";
-        
+
 
 const Home: FC = () => {
   const { categoria } = useParams();
@@ -21,7 +21,7 @@ const Home: FC = () => {
   const [estadoModal, setEstadoModal] = useState<boolean>(false);
   const [mensagemModal, setMensagemModal] = useState<string[]>([]);
   const [corModal, setCorModal] = useState<AlertColor>("warning");
-    
+
   const showMensagemModal = () => {
     if (state) {
       setEstadoModal(state.estadoModal);
@@ -50,7 +50,16 @@ const Home: FC = () => {
   useEffect(() => {
     mudaTitulo();
     showMensagemModal();
-  },[]);
+  }, []);
+
+  useEffect(() => {
+    if (window.location.pathname !== "/home") {
+      setTimeout(() => {
+        window.scrollTo({ top: 615, behavior: 'smooth' });
+      }, 200);
+    }
+  }, [categoria]);
+
 
 
   return (

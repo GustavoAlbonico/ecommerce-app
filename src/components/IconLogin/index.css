@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    min-width: 200px;
 }
 
 .container-login svg {

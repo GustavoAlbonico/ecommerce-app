@@ -1,15 +1,20 @@
 .header-main {
+    z-index: 500;
+    width: 100vw;
+    position: fixed;
+    background-color: #fffffff5;
+
     display: flex;
     align-items: center;
-    padding: 0 20px 10px;
     justify-content: space-between;
+    
+    padding: 0 20px 0px;
 }
 
 .options-header {
-    width: 38%;
+    width: 50%;
     display: flex;
     align-items: center;
-    gap: 50%;
     justify-content: space-around;
 }
 
@@ -24,6 +29,5 @@
 }
 
 .header-main > a img{
-    margin-left: 12px;
     width: 100px;
 }

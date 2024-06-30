@@ -40,8 +40,6 @@ const IconeLogin: FC = () => {
         } else if(horaAtual > 17 && horaAtual < 24){
             setPeriodo("Boa Noite");
         }
-
-        console.log(horaAtual)
     }
 
     useEffect(() => {

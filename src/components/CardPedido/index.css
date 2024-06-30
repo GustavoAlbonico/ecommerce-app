@@ -59,7 +59,7 @@
  width: 48%;
  height: 142px;
  min-width: 48%;
- /* object-fit: cover; */
+ object-fit: cover;
  border-radius: 10px;
 }
 

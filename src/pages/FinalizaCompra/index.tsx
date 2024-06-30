@@ -152,8 +152,10 @@ const FinalizaCompra: FC = () => {
     }, []);
 
     useEffect(() => {
-        window.scrollTo({ top: 100, behavior: 'smooth' })
-    }, [mostraModalEndereco, mostraModalPagamento, mostraModalCompraFinalizada]);
+        setTimeout(() => {
+            window.scrollTo({ top: 190, behavior: 'smooth' });
+          },100)
+    }, [mostraModalEndereco, mostraModalPagamento, mostraModalCompraFinalizada,formaPagamento]);
 
     return <>
         <MensagemModal
