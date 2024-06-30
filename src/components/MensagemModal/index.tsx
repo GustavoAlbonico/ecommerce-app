@@ -20,7 +20,13 @@ const MensagemModal: FC<MensagemModalProperties> = ({
     return <>
         <Snackbar
             open={estadoInicial}
-            anchorOrigin={{ horizontal: 'right', vertical: 'top' }} 
+            style={{
+                position: 'fixed',
+                top: '13vh',
+                right: '20px',
+                left: 'auto',
+                bottom: 'auto',
+            }}
             onClose={onClose}
         >
             <Alert 

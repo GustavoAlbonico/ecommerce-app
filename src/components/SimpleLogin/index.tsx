@@ -20,15 +20,51 @@ const SimpleLogin: FC<SimpleLoginProperties> = ({
     const [tipoSenha, setTipoSenha] = useState<boolean>(false);
     const [login, setLogin] = useState<string>();
     const [senha, setSenha] = useState<string>();
+
+    
+    const [errorLogin, setErrorLogin] = useState<boolean>(false);
+    const [errorSenha, setErrorSenha] = useState<boolean>(false);
+    const [mensagemErroLogin, setMensagemErroLogin] = useState<string>();
+    const [mensagemErroSenha, setMensagemErroSenha] = useState<string>();
+
+
     const [estadoModal, setEstadoModal] = useState<boolean>(false);
     const [mensagemModal, setMensagemModal] = useState<string[]>([]);
-    const [corModal, setCorModal] = useState<AlertColor>("warning");
+    const [corModal, setCorModal] = useState<AlertColor>("error");
+
+
+    const limpaError = () => {
+        setErrorLogin(false);
+        setMensagemErroLogin("");
+        setErrorSenha(false);
+        setMensagemErroSenha("");
+    }
+
+    const validaLogin = (): boolean => {
+        let hasError = false;
+
+        if (!login) {
+            setErrorLogin(true);
+            setMensagemErroLogin("Campo obrigatório");
+            hasError = true;
+        }
+        if (!senha) {
+            setErrorSenha(true);
+            setMensagemErroSenha("Campo obrigatório");
+            hasError = true;
+        }
+
+        return hasError;
+    }
 
     const onTipoSenha = () => {
         setTipoSenha(!tipoSenha);
     }
 
     const autenticarCliente = async () => {
+        limpaError();
+        if (validaLogin()) return;
+
         const data = {
             login,
             senha
@@ -51,14 +87,24 @@ const SimpleLogin: FC<SimpleLoginProperties> = ({
         }
 
         if (response.status === STATUS_CODE.BAD_REQUEST) {
-            setEstadoModal(true);
-            setMensagemModal(response.messages);
+            const listaMensagens = response.messages;
+
+            for(const mensagem of listaMensagens){
+                 if(mensagem.includes("Login")){
+                     setErrorLogin(true);
+                     setMensagemErroLogin(mensagem);
+                     continue;
+                 }
+                 if(mensagem.includes("Senha")){
+                     setErrorSenha(true);
+                     setMensagemErroSenha(mensagem);
+                 }
+            }
         }
 
         if (response.status === STATUS_CODE.INTERNAL_SERVER_ERROR) {
             setEstadoModal(true);
             setMensagemModal(["Erro Inesperado !"]);
-            setCorModal("error");
         }
     }
 
@@ -74,10 +120,12 @@ const SimpleLogin: FC<SimpleLoginProperties> = ({
         <div className="div-login">
             <div className="div-login-linha">
                 <TextField
+                    error={errorLogin}
                     fullWidth
                     label="Login"
                     type="text"
                     value={login}
+                    helperText={mensagemErroLogin}
                     onChange={(event) => {
                         if (event) {
                             setLogin(event.target.value);
@@ -94,9 +142,11 @@ const SimpleLogin: FC<SimpleLoginProperties> = ({
             </div>
             <div className="div-login-linha">
                 <TextField
+                    error={errorSenha}
                     label="Senha"
                     type={tipoSenha ? "text" : "password"}
                     value={senha}
+                    helperText={mensagemErroSenha}
                     onChange={(event) => {
                         if (event) {
                             setSenha(event.target.value);

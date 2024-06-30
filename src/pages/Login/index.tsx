@@ -84,7 +84,7 @@ const Login: FC = () => {
 
         if (response.status === STATUS_CODE.INTERNAL_SERVER_ERROR) {
             setEstadoModal(true);
-            setMensagemModal(["Erro inesperado!"]);
+            setMensagemModal(["Login erro inesperado!"]);
         }
 
     }
@@ -108,6 +108,7 @@ const Login: FC = () => {
                     <TextField
                         fullWidth
                         error={errorLogin}
+                        value={login}
                         id="standard-basic"
                         sx={{
                             '& .MuiInput-underline:after': {
@@ -131,6 +132,7 @@ const Login: FC = () => {
                     <TextField
                         fullWidth
                         error={errorSenha}
+                        value={senha}
                         id="standard-basic"
                         sx={{
                             '& .MuiInput-underline:after': {
