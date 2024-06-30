@@ -1,8 +1,5 @@
-import Categorias from "./components/Categorias";
 import "./App.css"
 import Router from "./Router";
-import Carousel from "./components/Carousel/inde";
-import ShapeDivider from "./components/ShapeDivider";
 
 
 

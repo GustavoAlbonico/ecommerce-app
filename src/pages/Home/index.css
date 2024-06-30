@@ -1,4 +1,33 @@
-.home-body{
-    display: flex;
-    justify-content: center;
+.home-body p > h2{
+    text-align: center;
+    margin: 52px;
+    font-size: 40px;
+    color: #292525;
 }
+
+.home-title {
+    position: relative;
+    text-align: center;
+    font-size: 24px; /* Ajuste conforme necessário */
+    margin: 20px 0; /* Ajuste conforme necessário */
+  }
+  
+  .home-title::before,
+  .home-title::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 50px; /* Ajuste conforme necessário */
+    height: 2px; /* Ajuste conforme necessário */
+    background-color: #000000b7; /* Cor do risco, ajuste conforme necessário */
+  }
+  
+  .home-title::before {
+    left: 0;
+    transform: translateX(-100%);
+  }
+  
+  .home-title::after {
+    right: 0;
+    transform: translateX(100%);
+  }

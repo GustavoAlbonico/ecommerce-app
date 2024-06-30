@@ -15,13 +15,14 @@ const Router: FC = () => {
           <Routes>
                <Route path="/home" element={<Home />}/>
                <Route path="/" element={<Home />}/>
-               <Route path="/detalhes" element={<DetalheProduto />}/>
+               <Route path="/detalhes/:id" element={<DetalheProduto />}/>
                <Route path="/usuario/minhaconta" element={<MinhaConta/>}/>
                <Route path="/usuario/pedidos" element={<HistoricoCompras/>}/>
                <Route path="/usuario/editar" element={<Cliente/>}/>
                <Route path="/usuario/endereco/editar" element={<Endereco acao="Editar"/>}/>
                <Route path="/usuario/endereco/adicionar" element={<Endereco acao="Adicionar"/>}/>
                <Route path="/pedido" element={<FinalizaCompra/>}/>
+               <Route path=":categoria" element={<Home />}/>
             
            </Routes>
         </BrowserRouter>
