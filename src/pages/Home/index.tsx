@@ -4,8 +4,6 @@ import CardOferta from "../../components/CardOferta";
 import Carousel from "../../components/Carousel/inde";
 import ShapeDivider from "../../components/ShapeDivider";
 import Categorias from "../../components/Categorias";
-import { ICarrinhoStore } from "../../store/CarrinhoStore/types";
-import { IUsuarioStore } from "../../store/UsuarioStore/types";
 import "./index.css";
 import { useParams } from "react-router-dom";
 import { CATEGORIA } from "./types";
