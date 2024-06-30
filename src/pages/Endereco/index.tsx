@@ -1,10 +1,9 @@
 import { FC, useEffect, useState } from "react";
 import Aside from "../../components/Aside";
 import "./index.css";
-import { AlertColor, TextField } from "@mui/material";
+import { AlertColor, Button, TextField } from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { IUsuarioStore } from "../../store/UsuarioStore/types";
-import Button from "../../components/Button";
 import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
 import { STATUS_CODE, apiGet, apiPost, apiPut } from "../../api/RestClient";
 import { IEndereco } from "./types";
@@ -50,7 +49,8 @@ const Endereco: FC<EnderecoProperties> = ({
                 navigate("/usuario/minhaconta", {
                     state: {
                         estadoModal: true,
-                        msgModal: "Endereço editado com sucesso!"
+                        msgModal: "Endereço editado com sucesso!",
+                        endereco: true,
                     }
                 });
             }
@@ -81,7 +81,8 @@ const Endereco: FC<EnderecoProperties> = ({
             navigate("/usuario/minhaconta", {
                 state: {
                     estadoModal: true,
-                    msgModal: "Endereço cadastrado com sucesso!"
+                    msgModal: "Endereço cadastrado com sucesso!",
+                    endereco: true,
                 }
             });
         }
@@ -103,7 +104,7 @@ const Endereco: FC<EnderecoProperties> = ({
             setCorModal("warning");
         }
 
-        
+
 
     }
 
@@ -151,6 +152,16 @@ const Endereco: FC<EnderecoProperties> = ({
                 </div>
                 <div className="endereco-form">
                     <TextField
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#862886',
+                                },
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#862886',
+                            },
+                        }}
                         fullWidth
                         value={apelido}
                         label="Apelido"
@@ -162,6 +173,16 @@ const Endereco: FC<EnderecoProperties> = ({
                         }}
                     />
                     <TextField
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#862886',
+                                },
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#862886',
+                            },
+                        }}
                         fullWidth
                         value={bairro}
                         label="Bairro"
@@ -173,6 +194,16 @@ const Endereco: FC<EnderecoProperties> = ({
                         }}
                     />
                     <TextField
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#862886',
+                                },
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#862886',
+                            },
+                        }}
                         fullWidth
                         value={numero}
                         label="Número"
@@ -184,6 +215,16 @@ const Endereco: FC<EnderecoProperties> = ({
                         }}
                     />
                     <TextField
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#862886',
+                                },
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#862886',
+                            },
+                        }}
                         fullWidth
                         value={cep}
                         label="Cep"
@@ -195,6 +236,16 @@ const Endereco: FC<EnderecoProperties> = ({
                         }}
                     />
                     <TextField
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#862886',
+                                },
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#862886',
+                            },
+                        }}
                         fullWidth
                         value={logradouro}
                         label="Logradouro"
@@ -206,6 +257,16 @@ const Endereco: FC<EnderecoProperties> = ({
                         }}
                     />
                     <TextField
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#862886',
+                                },
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#862886',
+                            },
+                        }}
                         fullWidth
                         value={complemento}
                         multiline
@@ -220,13 +281,37 @@ const Endereco: FC<EnderecoProperties> = ({
                     />
                     <div className="endereco-buttons">
                         <Button
-                            nome="Cancelar"
-                            funcao={redirecionamento}
-                        />
+                            sx={{
+                                backgroundColor: '#fac9c9',
+                                color: '#2b2b2b',
+                                opacity: "0.9",
+                                fontWeight: "bolder",
+                                '&:hover': {
+                                    backgroundColor: '#fac9c9',
+                                    opacity: "1",
+                                }
+                            }}
+                            variant="contained"
+                            onClick={redirecionamento}
+                        >
+                            Cancelar
+                        </Button>
                         <Button
-                            nome="Salvar"
-                            funcao={salvaEndereco}
-                        />
+                            sx={{
+                                backgroundColor: '#c0fcc6',
+                                color: '#2b2b2b',
+                                opacity: "0.9",
+                                fontWeight: "bolder",
+                                '&:hover': {
+                                    backgroundColor: '#c0fcc6',
+                                    opacity: "1",
+                                }
+                            }}
+                            variant="contained"
+                            onClick={salvaEndereco}
+                        >
+                            Salvar
+                        </Button>
                     </div>
                 </div>
             </main>

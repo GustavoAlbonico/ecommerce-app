@@ -18,7 +18,7 @@ const DetalheProduto: FC = () => {
 
   useEffect(() => {
       
-      apiGet(`/produtos/${id}`).then((response) => {
+      apiGet(`/produto/carregar/${id}`).then((response) => {
           if(response.status === STATUS_CODE.OK){
               
               setProduto(response.data);

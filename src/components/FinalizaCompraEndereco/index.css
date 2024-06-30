@@ -17,15 +17,33 @@
 }
 
 .finaliza-compra-endereco-card:hover {
-    background-color: #eff3fa;
+    background-color: #ebcdfa;
+    border-color: #cb9fe0 ;
     opacity: 1;
+}
+
+.finaliza-compra-endereco-card:hover div {
+    border-color: #cb9fe0;
+}
+
+.finaliza-compra-endereco-card:hover .finaliza-compra-endereco-card-content div {
+    border-color: #cb9fe0;
 }
 
 .endereco-destaque-on {
     transition: 0.5s;
     transform: translateX(20px);
-    background-color: #eff3fa;
+    background-color: #ebcdfa;
+    border-color: #cb9fe0 ;
     opacity: 1;
+}
+
+.endereco-destaque-on div {
+    border-color: #cb9fe0;
+}
+
+.endereco-destaque-on .finaliza-compra-endereco-card-content div {
+    border-color: #cb9fe0;
 }
 
 .endereco-destaque-off {

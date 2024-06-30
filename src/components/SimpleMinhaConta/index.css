@@ -1,5 +1,6 @@
 .container-simple-minha-conta {
-    padding: 10px 15px;
+    padding: 10px 15px 15px;
+    width: 15vw;
 }
 
 .container-simple-minha-conta ul {
@@ -15,6 +16,7 @@
 
 .container-simple-minha-conta ul li span {
     cursor: pointer;
-    font-weight: bold;
-    font-size: 12px;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+    font-size: 0.9rem;
 }

@@ -2,8 +2,7 @@ import { FC, useEffect, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Aside from "../../components/Aside";
 import "./index.css";
-import { AlertColor, TextField } from "@mui/material";
-import Button from "../../components/Button";
+import { AlertColor, Button, TextField } from "@mui/material";
 import { IClienteEdit } from "./types";
 import { STATUS_CODE, apiGet, apiPut } from "../../api/RestClient";
 import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
@@ -105,6 +104,16 @@ const Cliente: FC = () => {
                 </div>
                 <div className="cliente-form">
                     <TextField
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#862886',
+                                },
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#862886',
+                            },
+                        }}
                         fullWidth
                         value={dataNascimento}
                         label="Data de Nascimento"
@@ -116,6 +125,16 @@ const Cliente: FC = () => {
                         }}
                     />
                     <TextField
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#862886',
+                                },
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#862886',
+                            },
+                        }}
                         fullWidth
                         value={email}
                         label="E-mail"
@@ -127,6 +146,16 @@ const Cliente: FC = () => {
                         }}
                     />
                     <TextField
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#862886',
+                                },
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#862886',
+                            },
+                        }}
                         fullWidth
                         value={telefone}
                         label="Telefone"
@@ -139,13 +168,37 @@ const Cliente: FC = () => {
                     />
                     <div className="cliente-buttons">
                         <Button
-                            nome="Cancelar"
-                            funcao={redirecionamento}
-                        />
+                            sx={{
+                                backgroundColor: '#fac9c9',
+                                color: '#2b2b2b',
+                                opacity: "0.9",
+                                fontWeight: "bolder",
+                                '&:hover': {
+                                    backgroundColor: '#fac9c9',
+                                    opacity: "1",
+                                }
+                            }}
+                            variant="contained"
+                            onClick={redirecionamento}
+                        >
+                            Cancelar
+                        </Button>
                         <Button
-                            nome="Salvar"
-                            funcao={editarCliente}
-                        />
+                            sx={{
+                                backgroundColor: '#c0fcc6',
+                                color: '#2b2b2b',
+                                opacity: "0.9",
+                                fontWeight: "bolder",
+                                '&:hover': {
+                                    backgroundColor: '#c0fcc6',
+                                    opacity: "1",
+                                }
+                            }}
+                            variant="contained"
+                            onClick={editarCliente}
+                        >
+                            Salvar
+                        </Button>
                     </div>
                 </div>
             </main>

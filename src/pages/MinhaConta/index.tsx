@@ -51,6 +51,13 @@ const MinhaConta: FC = () => {
         if(state){
             setEstadoModal(state.estadoModal);
             setMensagemModal([state.msgModal]);
+
+            if(state.endereco){
+                setTimeout(() => {
+                    window.scrollTo({ top: 1440, behavior: 'smooth' });
+                  },100)
+            }
+
             navigate(location.pathname, { replace: true, state: null });
         }
     }

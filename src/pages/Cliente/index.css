@@ -36,15 +36,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15%;
+    gap: 10%;
     margin-top: 10px;
 }
 
-.cliente-buttons button:nth-child(1) {
-    border: 1px solid #b45e5e;
-    background-color: #fac9c9;
+.cliente-buttons button {
+    width: 20%;
 }
-.cliente-buttons button:nth-child(2) {
-    border: 1px solid #55965b;
-    background-color: #c0fcc6;
-}
+
