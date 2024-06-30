@@ -92,7 +92,7 @@ const FinalizaCompra: FC = () => {
         }
     }
 
-    const handleNext = () => {
+    const handleNext = async () => {
 
         if (!validaCartao() && etapa === 1 && formaPagamento === FORMA_PAGAMENTO.CARTAO) return;
 
@@ -107,13 +107,13 @@ const FinalizaCompra: FC = () => {
                     break;
                 case 1:
                     setMostraModalPagamento(false);
-                    salvaPedido();
+                    await salvaPedido();
                     setMostraModalCompraFinalizada(true);
                     setLabelProximo("Página Inicial");
                     break;
                 case 2:
                     setTimeout(() => {
-                        navigate("/home");
+                        window.location.href = "/home"
                     }, 500);
                     break;
             }
@@ -126,7 +126,7 @@ const FinalizaCompra: FC = () => {
 
         switch (etapa) {
             case 0:
-                navigate("/home");
+                window.location.href = "/home";
                 break;
             case 1:
                 setLabelVoltar("Cancelar");
@@ -187,9 +187,9 @@ const FinalizaCompra: FC = () => {
                     steps={3}
                     position="static"
                     activeStep={etapa}
-                    sx={{ maxWidth: "90%", flexGrow: 1 }}
+                    sx={{ maxWidth: "90%", flexGrow: 1}}
                     nextButton={
-                        <Button size="small" onClick={handleNext} disabled={etapa === 3}>
+                        <Button size="small" onClick={handleNext} sx={{ color: "#803EA0"}} disabled={etapa === 3}>
                             {labelProximo}
                             {theme.direction === 'rtl' ? (
                                 <KeyboardArrowLeft />
@@ -199,7 +199,7 @@ const FinalizaCompra: FC = () => {
                         </Button>
                     }
                     backButton={
-                        <Button size="small" onClick={handleBack} disabled={etapa >= 2}>
+                        <Button size="small" onClick={handleBack}  sx={{ color: "#803EA0"}} disabled={etapa >= 2}>
                             {theme.direction === 'rtl' ? (
                                 <KeyboardArrowRight />
                             ) : (

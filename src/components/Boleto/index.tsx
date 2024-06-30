@@ -48,13 +48,45 @@ const Boleto: FC<BoletoProperties> = ({
             <>
                 <div className="container-boleto">
                     <div className="container-boleto-buttons">
-                        <Button onClick={geraPDF} variant="contained" sx={{width: "142px"}} startIcon={<DownloadIcon />}>Download</Button>
+                        <Button
+                            sx={{
+                                width: "142px",
+                                backgroundColor: '#803EA0',
+                                color: 'white',
+                                opacity: "0.9",
+                                '&:hover': {
+                                    backgroundColor: '#803EA0',
+                                    opacity: "1",
+                                }
+                            }}
+                            onClick={geraPDF}
+                            variant="contained"
+                            startIcon={<DownloadIcon />}
+                        >
+                            Download
+                        </Button>
                         <ReactToPrint
-                            trigger={() => <Button variant="contained" sx={{width: "142px"}} startIcon={<LocalPrintshopIcon />}>Imprimir</Button>}
+                            trigger={() =>
+                                <Button
+                                    sx={{
+                                        width: "142px",
+                                        backgroundColor: '#803EA0',
+                                        color: 'white',
+                                        opacity: "0.9",
+                                        '&:hover': {
+                                            backgroundColor: '#803EA0',
+                                            opacity: "1",
+                                        }
+                                    }}
+                                    variant="contained"
+                                    startIcon={<LocalPrintshopIcon />}
+                                >
+                                    Imprimir
+                                </Button>}
                             content={() => componentRef.current}
                         />
                     </div>
-                    <BoletoImprimir valorTotal={valorTotal} ref={componentRef}/>
+                    <BoletoImprimir valorTotal={valorTotal} ref={componentRef} />
                     <p>Caso o pagamento não seja efetuado o pedido ira ser cancelado automaticamente.</p>
                 </div>
             </>

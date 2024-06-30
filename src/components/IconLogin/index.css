@@ -1,0 +1,17 @@
+.container-login {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.container-login svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.texto-login{
+    font-size: 13px;
+    font-weight: 500;
+}
