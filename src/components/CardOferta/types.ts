@@ -3,7 +3,7 @@ export interface IProduto{
     nome: string,
     imagem: string,
     valorUnitario: number,
-    Descricao: string,
+    descricao: string,
     classificacaoIndicativa: string,
     numeroJogadores: string,
 }

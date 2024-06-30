@@ -24,6 +24,7 @@ input::-webkit-inner-spin-button {
 
 .input-quantidade {
     border: none;
+    width: 150px;
     box-shadow: none;
     text-align: center;
     background: transparent;
@@ -31,4 +32,9 @@ input::-webkit-inner-spin-button {
 
 .input-quantidade input {
     text-align: center;
+}
+
+.div-input-quantidade .box{
+   margin-bottom: 8px;
+   padding-left: 0;
 }

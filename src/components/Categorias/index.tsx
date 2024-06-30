@@ -6,10 +6,10 @@ const Categorias: FC = () => {
       <div className="menu-categorias">
         <ul>
         <div className="line"></div>
-          <li><a href="/cartas"><img src="\categorias\cartas.png" alt="Botão que leva para a categoria de Cartas" /></a></li>
-          <li><a href="/magic"><img src="\categorias\magic.png" alt="Botão que leva para a categoria de Magic" /></a></li>
-          <li><a href="/rpg"><img src="\categorias\rpg.png" alt="Botão que leva para a categoria de RPG" /></a></li>
-          <li><a href="/tabuleiro"><img src="\categorias\tabuleiro.png" alt="Botão que leva para a categoria de Tabuleiro" /></a></li>
+          <li><a href="/CARTAS"><img src="\categorias\cartas.png" alt="Botão que leva para a categoria de Cartas" /></a></li>
+          <li><a href="/MAGIC"><img src="\categorias\magic.png" alt="Botão que leva para a categoria de Magic" /></a></li>
+          <li><a href="/RPG"><img src="\categorias\rpg.png" alt="Botão que leva para a categoria de RPG" /></a></li>
+          <li><a href="/TABULEIRO"><img src="\categorias\tabuleiro.png" alt="Botão que leva para a categoria de Tabuleiro" /></a></li>
         </ul>
       </div>
     </>

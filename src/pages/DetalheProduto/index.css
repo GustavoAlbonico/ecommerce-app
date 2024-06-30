@@ -10,6 +10,7 @@ align-items: center;
 }
 
 .detalhes-produto-body h3{
+    font-weight: bold;
     font-size: 24px;
 }
 
@@ -18,9 +19,9 @@ align-items: center;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 20vw;
+    width: 22vw;
     padding: 10px;
-    background-color: #fce6ce;
+    background-color: #F0E6FA;
     border-radius: 10px;
 }
 
@@ -35,5 +36,24 @@ align-items: center;
 .detalhes-produto-info span:nth-child(1){
     font-weight: bolder;
     color: #800080;
+}
+
+.detalhe-produto-preco{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.detalhes-produto-section img{
+    width: 40vw;
+}
+
+.detalhe-produto-quantidade-botao{
+    display: flex;
+    align-items: center;
+}
+
+.detalhes-produto-descricao{
+    width: 22vw;
+    margin-bottom: 30px;
 }
 
