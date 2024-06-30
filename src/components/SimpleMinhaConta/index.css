@@ -1,0 +1,20 @@
+.container-simple-minha-conta {
+    padding: 10px 15px;
+}
+
+.container-simple-minha-conta ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+   
+}
+
+.container-simple-minha-conta ul li span {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+}

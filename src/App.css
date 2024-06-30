@@ -1,15 +1,7 @@
 .body{
   overflow-x: hidden;
-}
-
-.logo-header{
-  width: 100vw;
-  height: auto;
-}
-
-.logo-header > a img{
-  margin-left: 12px;
-  width: 8%;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .info{

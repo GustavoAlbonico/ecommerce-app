@@ -12,3 +12,5 @@ export const buscaUsuarioSessao = ():IUsuarioStore => {
 export const adicionaUsuarioSessao = (usuario:IUsuarioStore) => {
     localStorage.setItem(USUARIO_STORE,JSON.stringify(usuario));
 }
+
+export const removerUsuario = () => (localStorage.removeItem(USUARIO_STORE));

@@ -29,7 +29,7 @@ const FinalizaCompraFinalizada: FC<FinalizaCompraFinalizadaProperties> = ({
                 pedido
                     ? <>
                         <div className="header-compra-finalizada">
-                            <CheckIcon sx={{fontSize: "2.2rem" }} fontSize="inherit" />
+                            <CheckIcon sx={{fontSize: "2.5rem" }} fontSize="inherit" />
                             <span>Compra Finalizada</span>
                         </div>
                         <div className="container-card-compra-finalizada">

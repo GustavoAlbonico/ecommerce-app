@@ -1,20 +1,16 @@
-import Categorias from "./components/Categorias";
 import "./App.css"
 import Router from "./Router";
-import Carousel from "./components/Carousel/inde";
-import ShapeDivider from "./components/ShapeDivider";
+import HeaderMain from "./components/HeaderMain";
 
 
 
 function App() {
+
+  const verificaRota = ():boolean => (window.location.pathname === "/pedido" ? true : false);
+
   return (
-    <div className="body">
-      <div className="header">
-        <div className="logo-header">
-        <a href="/home"><img src="/pandora_title.png" alt="" /></a>
-        {/* <div className="item-usuario"><IconeLogin/></div>  */}
-        </div>
-      </div>
+    <div className="body"> 
+      <HeaderMain disabledCarrinho={verificaRota()}/>
       <Router />
     </div>
   );
