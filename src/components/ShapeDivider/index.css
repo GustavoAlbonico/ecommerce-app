@@ -11,11 +11,13 @@
 .custom-shape-divider-bottom svg {
     position: relative;
     display: block;
-    width: calc(129% + 1.3px);
+    width: calc(140% + 1.3px);
     height: 128px;
+    margin-top: 8vh;
+    margin-right: 10vw;
 }
 
 .custom-shape-divider-bottom .shape-fill {
-    fill: #FFFFFF;
+    fill: #ffffff96;
     
 }

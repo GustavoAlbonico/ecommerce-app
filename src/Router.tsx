@@ -8,6 +8,7 @@ import Endereco from "./pages/Endereco";
 import FinalizaCompra from "./pages/FinalizaCompra";
 import DetalheProduto from "./pages/DetalheProduto";
 import BoletoImprimir from "./components/BoletoImprimir";
+import Login from "./pages/Login";
 
 const Router: FC = () => {
   
@@ -17,6 +18,7 @@ const Router: FC = () => {
                <Route path="/home" element={<Home />}/>
                <Route path="/" element={<Home />}/>
                <Route path="/detalhes/:id" element={<DetalheProduto />}/>
+               <Route path="/usuario/login" element={<Login/>}/>
                <Route path="/usuario/minhaconta" element={<MinhaConta/>}/>
                <Route path="/usuario/pedidos" element={<HistoricoCompras/>}/>
                <Route path="/usuario/editar" element={<Cliente/>}/>

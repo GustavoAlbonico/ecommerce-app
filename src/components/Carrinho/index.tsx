@@ -7,6 +7,7 @@ import { ICarrinhoStore } from "../../store/CarrinhoStore/types";
 import InputQuantidade from "../InputQuantidade";
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import { color } from "html2canvas/dist/types/css/types/color";
+import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
 const Carrinho: FC = () => {
     const [openDrawer, setOpenDrawer] = useState<boolean>(false);
     const [carrinho, setCarrinho] = useState<ICarrinhoStore[]>(buscaItensCarrinho);
@@ -40,7 +41,7 @@ const Carrinho: FC = () => {
         setValorTotal(Intl.NumberFormat("pt-BR", { style: 'currency', currency: 'BRL' }).format(somaTotal));
     }
 
-    const redirecionamento = () => window.location.href = '/pedido';
+    const redirecionamento = () => buscaUsuarioSessao().token ? window.location.href = '/pedido' : window.location.href = '/usuario/login';
 
     useEffect(() => {
         setCarrinho(buscaItensCarrinho());

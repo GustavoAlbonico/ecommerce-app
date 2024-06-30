@@ -41,7 +41,7 @@ const FinalizaCompraEndereco: FC<FinalizaCompraEnderecoProperties> = ({
         }
 
         if(response.status === STATUS_CODE.FORBIDDEN){//redireciona para o login
-            navigate("/usuario/login");
+            window.location.href = "usuario/login";
             return;
         }
 

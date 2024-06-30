@@ -49,7 +49,7 @@ const CardOferta: FC = () => {
         <>
           <div className="container-home-grid">
             {produtos.map((produto: IProduto) => (
-              <div key={produto.nome} className="body-card-oferta">
+              <div key={produto.nome} className={`body-card-oferta ${produto.quantidadeEstoque === 0 && "disabled-card-oferta"}`}>
                 <Card className="card-oferta" sx={{ maxWidth: 250 }}>
                   <CardMedia
                     sx={{ height: 180, width: 250 ,objectFit: "cover" }}
