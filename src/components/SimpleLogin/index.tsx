@@ -21,7 +21,7 @@ const SimpleLogin: FC<SimpleLoginProperties> = ({
     const [login, setLogin] = useState<string>();
     const [senha, setSenha] = useState<string>();
 
-    
+
     const [errorLogin, setErrorLogin] = useState<boolean>(false);
     const [errorSenha, setErrorSenha] = useState<boolean>(false);
     const [mensagemErroLogin, setMensagemErroLogin] = useState<string>();
@@ -89,16 +89,16 @@ const SimpleLogin: FC<SimpleLoginProperties> = ({
         if (response.status === STATUS_CODE.BAD_REQUEST) {
             const listaMensagens = response.messages;
 
-            for(const mensagem of listaMensagens){
-                 if(mensagem.includes("Login")){
-                     setErrorLogin(true);
-                     setMensagemErroLogin(mensagem);
-                     continue;
-                 }
-                 if(mensagem.includes("Senha")){
-                     setErrorSenha(true);
-                     setMensagemErroSenha(mensagem);
-                 }
+            for (const mensagem of listaMensagens) {
+                if (mensagem.includes("Login")) {
+                    setErrorLogin(true);
+                    setMensagemErroLogin(mensagem);
+                    continue;
+                }
+                if (mensagem.includes("Senha")) {
+                    setErrorSenha(true);
+                    setMensagemErroSenha(mensagem);
+                }
             }
         }
 
@@ -167,29 +167,29 @@ const SimpleLogin: FC<SimpleLoginProperties> = ({
                 />
             </div>
             <div className="div-login-linha">
-                <Button 
+                <Button
                     onClick={onClose}
-                    sx={{ 
-                        color:"#803EA0",
+                    sx={{
+                        color: "#850d85",
                         width: "50%",
                         fontSize: "13px",
                         fontWeight: "bolder",
-                        border: "1px solid #803EA0"
+                        border: "1px solid #850d85"
                     }}
                 >
                     Voltar
                 </Button>
+
                 <Button
                     sx={{
                         width: "50%",
                         fontSize: "13px",
-                        border: "1px solid #803EA0",
-                        backgroundColor: '#803EA0',
+                        border: "1px solid #850d85",
+                        backgroundColor: '#850d85',
                         color: 'white',
-                        opacity: "0.9",
+
                         '&:hover': {
-                            backgroundColor: '#803EA0',
-                            opacity: "1",
+                            backgroundColor: '#8d288d',
                         }
                     }}
                     variant="contained"

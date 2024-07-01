@@ -5,6 +5,7 @@
   }
   
   .body-card-oferta {
+    position: relative;
     display: flex;
     justify-content: center;
   }

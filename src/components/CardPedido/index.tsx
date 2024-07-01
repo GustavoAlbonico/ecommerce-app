@@ -8,7 +8,7 @@ interface CardPedidoProperties {
     endereco:string,
     formaPagamento:string,
     quantidade:number,
-    valorTotal:number,
+    valorTotal:string,
     nomeProduto: string,
     descricaoProduto: string,
     imagemProduto:string,

@@ -13,13 +13,53 @@ const Cliente: FC = () => {
     const navigate = useNavigate();
     const [usuarioSessao, setUsuarioSessao] = useState<IUsuarioStore>();
     const [urlParametro, setUrlParametro] = useSearchParams();
-    const [dataNascimento, setDataNascimento] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
-    const [telefone, setTelefone] = useState<string>('');
     const [nome, setNome] = useState<string>('');
     const [estadoModal, setEstadoModal] = useState<boolean>(false);
     const [mensagemModal, setMensagemModal] = useState<string[]>([]);
     const [corModal, setCorModal] = useState<AlertColor>("success");
+
+    const [dataNascimento, setDataNascimento] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [telefone, setTelefone] = useState<string>('');
+
+    const [errorDataNascimento, setErrorDataNascimento] = useState<boolean>(false);
+    const [errorEmail, setErrorEmail] = useState<boolean>(false);
+    const [errorTelefone, setErrorTelefone] = useState<boolean>(false);
+
+    const [mensagemErroDataNascimento, setMensagemErroDataNascimento] = useState<string>();
+    const [mensagemErroEmail, setMensagemErroEmail] = useState<string>();
+    const [mensagemErroTelefone, setMensagemErroTelefone] = useState<string>();
+
+    const limpaError = () => {
+        setErrorDataNascimento(false);
+        setMensagemErroDataNascimento("");
+        setErrorEmail(false);
+        setMensagemErroEmail("");
+        setErrorTelefone(false);
+        setMensagemErroTelefone("");
+    }
+
+    const validaCliente = (): boolean => {
+        let hasError = false;
+
+        if (!dataNascimento) {
+            setErrorDataNascimento(true);
+            setMensagemErroDataNascimento("Campo obrigatório");
+            hasError = true;
+        }
+        if (!email) {
+            setErrorEmail(true);
+            setMensagemErroEmail("Campo obrigatório");
+            hasError = true;
+        }
+        if (!telefone) {
+            setErrorTelefone(true);
+            setMensagemErroTelefone("Campo obrigatório");
+            hasError = true;
+        }
+
+        return hasError;
+    }
 
     const buscaClientePorId = async () => {
 
@@ -40,6 +80,9 @@ const Cliente: FC = () => {
     }
 
     const editarCliente = async () => {
+
+        limpaError();
+        if (validaCliente()) return;
 
         const cliente: IClienteEdit = {
             nome: nome,
@@ -67,13 +110,28 @@ const Cliente: FC = () => {
         }
 
         if (response.status === STATUS_CODE.BAD_REQUEST) {
-            setEstadoModal(true);
-            setMensagemModal(response.messages);
-            setCorModal("warning");
+            const listaMensagens = response.messages;
+
+            for (const mensagem of listaMensagens) {
+                if (mensagem.includes("Data de nascimento")) {
+                    setErrorDataNascimento(true);
+                    setMensagemErroDataNascimento(mensagem);
+                    continue;
+                }
+                if (mensagem.includes("E-mail")) {
+                    setErrorEmail(true);
+                    setMensagemErroEmail(mensagem);
+                    continue;
+                }
+                if (mensagem.includes("Telefone")) {
+                    setErrorTelefone(true);
+                    setMensagemErroTelefone(mensagem);
+                }
+            }
         }
 
         if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
-            navigate("/usuario/login");
+            window.location.href = "/usuario/login?msgModal=true";
             return;
         }
     }
@@ -82,8 +140,18 @@ const Cliente: FC = () => {
         navigate("/usuario/minhaconta");
     }
 
+    const defineUsuarioSessao = () => {
+        const usuario:IUsuarioStore = buscaUsuarioSessao();
+
+        if(usuario.token){
+            setUsuarioSessao(usuario);
+            return;
+        }
+        window.location.href = "/usuario/login?msgModal=true";
+    }
+
     useEffect(() => {
-        setUsuarioSessao(buscaUsuarioSessao());
+        defineUsuarioSessao();
         buscaClientePorId();
     }, []);
 
@@ -100,10 +168,12 @@ const Cliente: FC = () => {
             <Aside usuarioNome={usuarioSessao?.login || "Usuário"} />
             <main className="cliente-main">
                 <div className="titulo-detalhes-cliente">
-                    <h2>Suas Informações &#707;  Informações do Perfil &#707; Editar</h2>
+                    <h2>Suas Informações &#47;  Informações do Perfil &#47; Editar</h2>
                 </div>
                 <div className="cliente-form">
                     <TextField
+                        error={errorDataNascimento}
+                        helperText={mensagemErroDataNascimento}
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '&.Mui-focused fieldset': {
@@ -125,6 +195,8 @@ const Cliente: FC = () => {
                         }}
                     />
                     <TextField
+                        error={errorEmail}
+                        helperText={mensagemErroEmail}
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '&.Mui-focused fieldset': {
@@ -146,6 +218,8 @@ const Cliente: FC = () => {
                         }}
                     />
                     <TextField
+                        error={errorTelefone}
+                        helperText={mensagemErroTelefone}
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '&.Mui-focused fieldset': {

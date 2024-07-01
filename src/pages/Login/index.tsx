@@ -1,13 +1,16 @@
 import { AlertColor, Button, TextField } from "@mui/material";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import "./index.css";
 import { ILogin } from "./types";
 import { STATUS_CODE, apiPost } from "../../api/RestClient";
-import MensagemModal from "../../components/MensagemModal";
 import { adicionaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
 import { IUsuarioStore } from "../../store/UsuarioStore/types";
+import { useSearchParams } from "react-router-dom";
+import MensagemModalLogin from "../../components/MensagemModalLogin";
+
 
 const Login: FC = () => {
+    const [urlParametro, setUrlParametro] = useSearchParams();
     const [errorLogin, setErrorLogin] = useState<boolean>(false);
     const [errorSenha, setErrorSenha] = useState<boolean>(false);
     const [mensagemErroLogin, setMensagemErroLogin] = useState<string>();
@@ -89,18 +92,30 @@ const Login: FC = () => {
 
     }
 
+    const showMensagemModal = () => {
+        if(urlParametro.get('msgModal')){
+            setEstadoModal(true);
+            setMensagemModal(["Sessão Expirada!"]);
+            setCorModal('warning');
+        }
+    }
+
+    useEffect(() => {
+        showMensagemModal();
+    },[])
+
     return <>
-        <MensagemModal
-            estadoInicial={estadoModal}
-            corModal={corModal}
-            mensagem={mensagemModal}
-            onClose={() => {
-                setEstadoModal(false);
-            }}
-        />
+        <MensagemModalLogin
+                estadoInicial={estadoModal}
+                corModal={corModal}
+                mensagem={mensagemModal}
+                onClose={() => {
+                    setEstadoModal(false);
+                }}
+            />
         <div className="container-login-page">
             <header className="header-login">
-                <a href="/home"><img src="/pandora_title.png" alt="" /></a>
+                <a href="/home"><img src="/logo-login.svg" alt="" /></a>
             </header>
             <main>
                 <h3>Jogos incríveis estão a sua espera.</h3>
@@ -155,12 +170,10 @@ const Login: FC = () => {
                 <div className="login-buttons">
                     <Button
                         sx={{
-                            backgroundColor: '#803EA0',
+                            backgroundColor: '#850d85',
                             color: 'white',
-                            opacity: "0.9",
                             '&:hover': {
-                                backgroundColor: '#803EA0',
-                                opacity: "1",
+                                backgroundColor: '#8d288d',
                             }
                         }}
                         variant="contained"

@@ -2,7 +2,7 @@ import { Alert, AlertColor, Snackbar } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
 import { FC } from "react";
 
-interface MensagemModalProperties {
+interface MensagemModalLoginProperties {
     estadoInicial:boolean,
     corModal: AlertColor,
     mensagem:string[],
@@ -10,7 +10,7 @@ interface MensagemModalProperties {
 
 }
 
-const MensagemModal: FC<MensagemModalProperties> = ({
+const MensagemModalLogin: FC<MensagemModalLoginProperties> = ({
     estadoInicial,
     corModal,
     mensagem,
@@ -21,8 +21,8 @@ const MensagemModal: FC<MensagemModalProperties> = ({
             open={estadoInicial}
             style={{
                 position: 'fixed',
-                top: '13vh',
-                right: '20px',
+                top: '1vh',
+                right: '0.3vw',
                 left: 'auto',
                 bottom: 'auto',
             }}
@@ -44,4 +44,4 @@ const MensagemModal: FC<MensagemModalProperties> = ({
     </>
 }
 
-export default MensagemModal;
+export default MensagemModalLogin;
