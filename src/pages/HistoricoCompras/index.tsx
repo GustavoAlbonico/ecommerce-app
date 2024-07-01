@@ -32,7 +32,14 @@ const HistoricoCompras: FC = () => {
             setEstadoModal(true);
             setMensagemModal(["Erro inesperado!"]);
             setCorModal("error");
+            return;
         }
+        
+        window.location.href = "/usuario/login?msgModal=true";
+    }
+
+    const transformaValorReais = (valorUnitario: number): string => {
+        return Intl.NumberFormat("pt-BR", { style: 'currency', currency: 'BRL' }).format(valorUnitario)
     }
 
     useEffect(() => {
@@ -68,7 +75,7 @@ const HistoricoCompras: FC = () => {
                                                 endereco={pedido.enderecoApelido}
                                                 formaPagamento={pedido.formaPagamento}
                                                 quantidade={pedidoItem.quantidade}
-                                                valorTotal={pedidoItem.valorTotal}
+                                                valorTotal={transformaValorReais(pedidoItem.valorTotal)}
                                                 nomeProduto={pedidoItem.produto.nome}
                                                 descricaoProduto={pedidoItem.produto.descricao}
                                                 imagemProduto={`produtos/${pedidoItem.produto.imagem}`}

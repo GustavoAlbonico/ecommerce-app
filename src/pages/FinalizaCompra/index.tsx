@@ -191,7 +191,7 @@ const FinalizaCompra: FC = () => {
                     activeStep={etapa}
                     sx={{ maxWidth: "90%", flexGrow: 1}}
                     nextButton={
-                        <Button size="small" onClick={handleNext} sx={{ color: "#803EA0"}} disabled={etapa === 3}>
+                        <Button size="small" onClick={handleNext} sx={{ color: "#850d85"}} disabled={etapa === 3}>
                             {labelProximo}
                             {theme.direction === 'rtl' ? (
                                 <KeyboardArrowLeft />
@@ -201,7 +201,7 @@ const FinalizaCompra: FC = () => {
                         </Button>
                     }
                     backButton={
-                        <Button size="small" onClick={handleBack}  sx={{ color: "#803EA0"}} disabled={etapa >= 2}>
+                        <Button size="small" onClick={handleBack}  sx={{ color: "#850d85"}} disabled={etapa >= 2}>
                             {theme.direction === 'rtl' ? (
                                 <KeyboardArrowRight />
                             ) : (

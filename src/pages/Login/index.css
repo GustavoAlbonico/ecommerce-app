@@ -18,11 +18,12 @@
 }
 
 .header-login>a {
-    width: 100px;
+    padding: 5px 0;
+    width: 180px;
 }
 
 .header-login>a img {
-    width: 100px;
+    width: 180px;
 }
 
 .container-login-page main {
@@ -57,4 +58,9 @@
     margin: 0;
     font-size: 0.8rem;
     font-weight: 500;
+}
+
+.container-login-page main p a {
+    color: #7f0db8;
+    text-decoration: none;
 }

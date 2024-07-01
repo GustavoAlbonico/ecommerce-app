@@ -43,8 +43,10 @@ const MinhaConta: FC = () => {
             setEstadoModal(true);
             setMensagemModal(["Erro inesperado!"]);
             setCorModal("error");
+            return;
         }
-     
+        
+        window.location.href = "/usuario/login?msgModal=true";
     }
 
     const showMensagemModal = () => {

@@ -6,13 +6,13 @@ const BotaoPadrao: FC = () => {
     <>
       <Button
         sx={{
-          backgroundColor: "purple",
+          backgroundColor: "#850d85",
           color: "white",
           border: "1px solid white",
           fontWeight: "bold",
           "&:hover": {
-            backgroundColor: "#862886",
-            border: "1px solid #862886",
+            backgroundColor: "#8d288d",
+            border: "1px solid #8d288d",
             fontWeight: "bold",
           },
         }}

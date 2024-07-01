@@ -75,9 +75,9 @@ const Carrinho: FC = () => {
                 margin={"0 10px 15px 10px"}
             >
                 <Button
-                    sx={{ color: "#803EA0" }}
+                    sx={{ color: "#850d85" }}
                     variant="text"
-                    startIcon={<Close sx={{ color: "#803EA0" }} />}
+                    startIcon={<Close sx={{ color: "#850d85" }} />}
                     onClick={() => {
                         setOpenDrawer(false);
                     }}
@@ -133,12 +133,10 @@ const Carrinho: FC = () => {
                 <h3>Total: {valorTotal}</h3>
                 <Button
                     sx={{
-                        backgroundColor: '#803EA0',
+                        backgroundColor: '#850d85',
                         color: 'white',
-                        opacity: "0.9",
                         '&:hover': {
-                            backgroundColor: '#803EA0',
-                            opacity: "1",
+                            backgroundColor: '#8d288d',
                         }
                     }}
                     variant="contained"

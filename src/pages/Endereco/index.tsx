@@ -19,17 +19,110 @@ const Endereco: FC<EnderecoProperties> = ({
     const navigate = useNavigate();
     const [usuarioSessao, setUsuarioSessao] = useState<IUsuarioStore>();
     const [urlParametro, setUrlParametro] = useSearchParams();
+    const [estadoModal, setEstadoModal] = useState<boolean>(false);
+    const [mensagemModal, setMensagemModal] = useState<string[]>([]);
+    const [corModal, setCorModal] = useState<AlertColor>("success");
+
     const [apelido, setApelido] = useState<string>('');
     const [bairro, setBairro] = useState<string>('');
     const [numero, setNumero] = useState<string>('');
     const [cep, setCep] = useState<string>('');
     const [logradouro, setLogradouro] = useState<string>('');
     const [complemento, setComplemento] = useState<string>('');
-    const [estadoModal, setEstadoModal] = useState<boolean>(false);
-    const [mensagemModal, setMensagemModal] = useState<string[]>([]);
-    const [corModal, setCorModal] = useState<AlertColor>("success");
+
+    const [errorApelido, setErrorApelido] = useState<boolean>(false);
+    const [errorBairro, setErrorBairro] = useState<boolean>(false);
+    const [errorNumero, setErrorNumero] = useState<boolean>(false);
+    const [errorLogradouro, setErrorLogradouro] = useState<boolean>(false);
+    const [errorCep, setErrorCep] = useState<boolean>(false);
+
+
+    const [mensagemErroApelido, setMensagemErroApelido] = useState<string>();
+    const [mensagemErroBairro, setMensagemErroBairro] = useState<string>();
+    const [mensagemErroNumero, setMensagemErroNumero] = useState<string>();
+    const [mensagemErroLogradouro, setMensagemErroLogradouro] = useState<string>();
+    const [mensagemErroCep, setMensagemErroCep] = useState<string>();
+
+    const limpaError = () => {
+        setErrorApelido(false);
+        setMensagemErroApelido("");
+        setErrorBairro(false);
+        setMensagemErroBairro("");
+        setErrorNumero(false);
+        setMensagemErroNumero("");
+        setErrorLogradouro(false);
+        setMensagemErroLogradouro("");
+        setErrorCep(false);
+        setMensagemErroCep("");
+    }
+
+    const validaEndereco = (): boolean => {
+        let hasError = false;
+
+        if (!apelido) {
+            setErrorApelido(true);
+            setMensagemErroApelido("Campo obrigatório");
+            hasError = true;
+        }
+        if (!bairro) {
+            setErrorBairro(true);
+            setMensagemErroBairro("Campo obrigatório");
+            hasError = true;
+        }
+        if (!numero) {
+            setErrorNumero(true);
+            setMensagemErroNumero("Campo obrigatório");
+            hasError = true;
+        }
+        if (!logradouro) {
+            setErrorLogradouro(true);
+            setMensagemErroLogradouro("Campo obrigatório");
+            hasError = true;
+        }
+        if (!cep) {
+            setErrorCep(true);
+            setMensagemErroCep("Campo obrigatório");
+            hasError = true;
+        }
+
+        return hasError;
+    }
+
+    const mostraErrorResponse = (listaMensagens: string[]) => {
+
+        for (const mensagem of listaMensagens) {
+            if (mensagem.includes("Apelido")) {
+                setErrorApelido(true);
+                setMensagemErroApelido(mensagem);
+                continue;
+            }
+            if (mensagem.includes("Bairro")) {
+                setErrorBairro(true);
+                setMensagemErroBairro(mensagem);
+                continue;
+            }
+            if (mensagem.includes("Número")) {
+                setErrorNumero(true);
+                setMensagemErroNumero(mensagem);
+                continue;
+            }
+            if (mensagem.includes("Logradouro")) {
+                setErrorLogradouro(true);
+                setMensagemErroLogradouro(mensagem);
+                continue;
+            }
+            if (mensagem.includes("CEP")) {
+                setErrorCep(true);
+                setMensagemErroCep(mensagem);
+            }
+        }
+    }
+
 
     const salvaEndereco = async () => {
+        limpaError();
+        if (validaEndereco()) return;
+
         const cliente_id = parseInt(urlParametro.get("idCliente") || '0');
 
         const endereco: IEndereco = {
@@ -62,13 +155,11 @@ const Endereco: FC<EnderecoProperties> = ({
             }
 
             if (response.status === STATUS_CODE.BAD_REQUEST) {
-                setEstadoModal(true);
-                setMensagemModal(response.messages);
-                setCorModal("error");
+                mostraErrorResponse(response.messages);
             }
 
             if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
-                navigate("/usuario/login");
+                window.location.href = "/usuario/login?msgModal=true";
                 return;
             }
 
@@ -88,7 +179,7 @@ const Endereco: FC<EnderecoProperties> = ({
         }
 
         if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
-            navigate("/usuario/login");
+            window.location.href = "/usuario/login?msgModal=true";
             return;
         }
 
@@ -99,13 +190,8 @@ const Endereco: FC<EnderecoProperties> = ({
         }
 
         if (response.status === STATUS_CODE.BAD_REQUEST) {
-            setEstadoModal(true);
-            setMensagemModal(response.messages);
-            setCorModal("warning");
+            mostraErrorResponse(response.messages);
         }
-
-
-
     }
 
     const buscaEnderecoPorId = async () => {
@@ -126,10 +212,19 @@ const Endereco: FC<EnderecoProperties> = ({
         navigate("/usuario/minhaconta");
     }
 
+    const defineUsuarioSessao = () => {
+        const usuario:IUsuarioStore = buscaUsuarioSessao();
+
+        if(usuario.token){
+            setUsuarioSessao(usuario);
+            return;
+        }
+        window.location.href = "/usuario/login?msgModal=true";
+    }
+
 
     useEffect(() => {
-        setUsuarioSessao(buscaUsuarioSessao());
-
+        defineUsuarioSessao();
         if (acao === "Editar") {
             buscaEnderecoPorId();
         }
@@ -148,10 +243,12 @@ const Endereco: FC<EnderecoProperties> = ({
             <Aside usuarioNome={usuarioSessao?.login || "Usuário"} />
             <main className="endereco-main">
                 <div className="titulo-detalhes-endereco">
-                    <h2>Suas Informações &#707; Endereço &#707; {acao}</h2>
+                    <h2>Suas Informações &#47; Endereço &#47; {acao}</h2>
                 </div>
                 <div className="endereco-form">
                     <TextField
+                        error={errorApelido}
+                        helperText={mensagemErroApelido}
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '&.Mui-focused fieldset': {
@@ -173,6 +270,8 @@ const Endereco: FC<EnderecoProperties> = ({
                         }}
                     />
                     <TextField
+                        error={errorBairro}
+                        helperText={mensagemErroBairro}
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '&.Mui-focused fieldset': {
@@ -194,6 +293,8 @@ const Endereco: FC<EnderecoProperties> = ({
                         }}
                     />
                     <TextField
+                        error={errorNumero}
+                        helperText={mensagemErroNumero}
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '&.Mui-focused fieldset': {
@@ -215,6 +316,8 @@ const Endereco: FC<EnderecoProperties> = ({
                         }}
                     />
                     <TextField
+                        error={errorCep}
+                        helperText={mensagemErroCep}
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '&.Mui-focused fieldset': {
@@ -236,6 +339,8 @@ const Endereco: FC<EnderecoProperties> = ({
                         }}
                     />
                     <TextField
+                        error={errorLogradouro}
+                        helperText={mensagemErroLogradouro}
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '&.Mui-focused fieldset': {

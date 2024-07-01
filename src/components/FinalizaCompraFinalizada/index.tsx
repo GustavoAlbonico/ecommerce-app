@@ -17,6 +17,10 @@ const FinalizaCompraFinalizada: FC<FinalizaCompraFinalizadaProperties> = ({
 
     const mudaModal = () => (mostraModal ? setOpen(true) : setOpen(false));
 
+    const transformaValorReais = (valorUnitario: number): string => {
+        return Intl.NumberFormat("pt-BR", { style: 'currency', currency: 'BRL' }).format(valorUnitario)
+    }
+
     useEffect(() => {
 
         mudaModal();
@@ -40,7 +44,7 @@ const FinalizaCompraFinalizada: FC<FinalizaCompraFinalizadaProperties> = ({
                                         endereco={pedido.enderecoApelido}
                                         formaPagamento={pedido.formaPagamento}
                                         quantidade={pedidoItem.quantidade}
-                                        valorTotal={pedidoItem.valorTotal}
+                                        valorTotal={transformaValorReais(pedidoItem.valorTotal)}
                                         nomeProduto={pedidoItem.produto.nome}
                                         descricaoProduto={pedidoItem.produto.descricao}
                                         imagemProduto={`produtos/${pedidoItem.produto.imagem}`}
