@@ -2,7 +2,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    max-width: 100vw;
+    width:100%;
     overflow: hidden;
     line-height: 0;
     transform: rotate(180deg);
@@ -11,10 +11,9 @@
 .custom-shape-divider-bottom svg {
     position: relative;
     display: block;
-    width: calc(140% + 1.3px);
+    width: 100vw;
     height: 128px;
-    margin-top: 8vh;
-    margin-right: 10vw;
+    margin-top: 16vh;
 }
 
 .custom-shape-divider-bottom .shape-fill {

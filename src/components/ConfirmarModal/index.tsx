@@ -31,7 +31,7 @@ const ConfirmarModal: FC<ConfirmarModalProperties> = ({
                 <Button 
                     sx={{
                         backgroundColor: 'white',
-                        color: '#',
+                        color: '#850d85',
                         border: '1px solid #850d85',
                         fontWeight: 'bold'
                       }}
