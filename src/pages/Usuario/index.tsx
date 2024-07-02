@@ -6,6 +6,7 @@ import { IUsuarioStore } from "../../store/UsuarioStore/types";
 import { IClienteCadastro, IEnderecoCadastro, IUsuarioCadastro } from "./types";
 import { STATUS_CODE, apiPost } from "../../api/RestClient";
 import { adicionaUsuarioSessao, buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
+import MensagemModal from "../../components/MensagemModal";
 
 interface UsuarioProperties {
 
@@ -41,19 +42,17 @@ const Usuario: FC<UsuarioProperties> = ({
   const [errorLogin, setErrorLogin] = useState<boolean>(false);
   const [errorSenha, setErrorSenha] = useState<boolean>(false);
 
-  const [mensagemLogin, setMensagemErroLogin] = useState<string>();
+  const [mensagemErroLogin, setMensagemErroLogin] = useState<string>();
   const [mensagemErroSenha, setMensagemErroSenha] = useState<string>();
 
   // validações - cliente
-  const [errorNomeCompleto, setErrorNomeCompleto] = useState<boolean>(false);
+  const [errorNome, setErrorNome] = useState<boolean>(false);
   const [errorDataNascimento, setErrorDataNascimento] = useState<boolean>(false);
   const [errorEmail, setErrorEmail] = useState<boolean>(false);
-  const [errorTelefone, setErrorTelefone] = useState<boolean>(false);
 
-  const [mensagemNomeCompleto, setMensagemErroNomeCompleto] = useState<string>();
+  const [mensagemErroNome, setMensagemErroNome] = useState<string>();
   const [mensagemErroDataNascimento, setMensagemErroDataNascimento] = useState<string>();
   const [mensagemErroEmail, setMensagemErroEmail] = useState<string>();
-  const [mensagemErroTelefone, setMensagemErroTelefone] = useState<string>();
 
   // validações - endereço
   const [errorApelido, setErrorApelido] = useState<boolean>(false);
@@ -74,14 +73,12 @@ const Usuario: FC<UsuarioProperties> = ({
     setErrorSenha(false);
     setMensagemErroSenha("");
 
-    setErrorNomeCompleto(false);
-    setMensagemErroNomeCompleto("");
+    setErrorNome(false);
+    setMensagemErroNome("");
     setErrorDataNascimento(false);
     setMensagemErroDataNascimento("");
     setErrorEmail(false);
     setMensagemErroEmail("");
-    setErrorTelefone(false);
-    setMensagemErroTelefone("");
 
     setErrorApelido(false);
     setMensagemErroApelido("");
@@ -93,6 +90,48 @@ const Usuario: FC<UsuarioProperties> = ({
     setMensagemErroLogradouro("");
     setErrorCep(false);
     setMensagemErroCep("");
+  }
+
+  const validaUsuario = (): boolean => {
+    let hasError = false;
+
+    if (!login) {
+      setErrorLogin(true);
+      setMensagemErroLogin("Campo obrigatório");
+      hasError = true;
+    }
+
+    if (!senha) {
+      setErrorSenha(true);
+      setMensagemErroSenha("Campo obrigatório");
+      hasError = true;
+    }
+
+    return hasError;
+  }
+
+  const validaCliente = (): boolean => {
+    let hasError = false;
+
+    if (!nome) {
+      setErrorNome(true);
+      setMensagemErroNome("Campo obrigatório");
+      hasError = true;
+    }
+
+    if (!dataNascimento) {
+      setErrorDataNascimento(true);
+      setMensagemErroDataNascimento("Campo obrigatório");
+      hasError = true;
+    }
+
+    if (!email) {
+      setErrorEmail(true);
+      setMensagemErroEmail("Campo obrigatório");
+      hasError = true;
+    }
+
+    return hasError;
   }
 
   const validaEndereco = (): boolean => {
@@ -130,6 +169,34 @@ const Usuario: FC<UsuarioProperties> = ({
   const mostraErrorResponse = (listaMensagens: string[]) => {
 
     for (const mensagem of listaMensagens) {
+      if (mensagem.includes("Login")) {
+        setErrorLogin(true);
+        setMensagemErroLogin(mensagem);
+        continue;
+      }
+      if (mensagem.includes("Senha")) {
+        setErrorSenha(true);
+        setMensagemErroSenha(mensagem);
+        continue;
+      }
+
+      if (mensagem.includes("Nome")) {
+        setErrorNome(true);
+        setMensagemErroNome(mensagem);
+        continue;
+      }
+      if (mensagem.includes("Data de nascimento")) {
+        setErrorDataNascimento(true);
+        setMensagemErroDataNascimento(mensagem);
+        continue;
+      }
+      if (mensagem.includes("E-mail")) {
+        setErrorEmail(true);
+        setMensagemErroEmail(mensagem);
+        continue;
+      }
+
+
       if (mensagem.includes("Apelido")) {
         setErrorApelido(true);
         setMensagemErroApelido(mensagem);
@@ -157,9 +224,11 @@ const Usuario: FC<UsuarioProperties> = ({
     }
   }
 
+
+
   const salvaUsuario = async () => {
     limpaError();
-    if (validaEndereco()) return;
+    if (validaUsuario() && validaCliente() && validaEndereco()) return;
 
     const endereco: IEnderecoCadastro = {
       apelido,
@@ -217,6 +286,14 @@ const Usuario: FC<UsuarioProperties> = ({
   }
 
   return <>
+    <MensagemModal
+      estadoInicial={estadoModal}
+      corModal={corModal}
+      mensagem={mensagemModal}
+      onClose={() => {
+        setEstadoModal(false);
+      }}
+    />
     <div className="container-cadastro-page">
       <header className="header-cadastro">
         <a href="/home"><img src="/logo-login.svg" alt="" /></a>
@@ -227,6 +304,8 @@ const Usuario: FC<UsuarioProperties> = ({
           <div className="itens-cadastro">
             <div className="login-cadastro">
               <TextField
+                error={errorLogin}
+                helperText={mensagemErroLogin}
                 fullWidth
                 value={login}
                 id="standard-basic"
@@ -249,6 +328,8 @@ const Usuario: FC<UsuarioProperties> = ({
             </div>
             <div className="cadastro-senha">
               <TextField
+                error={errorSenha}
+                helperText={mensagemErroSenha}
                 fullWidth
                 value={senha}
                 type="password"
@@ -277,6 +358,8 @@ const Usuario: FC<UsuarioProperties> = ({
           <div className="itens-cadastro">
             <div className="login-cadastro">
               <TextField
+                error={errorNome}
+                helperText={mensagemErroNome}
                 fullWidth
                 value={nome}
                 id="standard-basic"
@@ -299,6 +382,8 @@ const Usuario: FC<UsuarioProperties> = ({
             </div>
             <div className="login-cadastro">
               <TextField
+                error={errorDataNascimento}
+                helperText={mensagemErroDataNascimento}
                 fullWidth
                 type="date"
                 // placeholder="dataNascimento"
@@ -326,6 +411,8 @@ const Usuario: FC<UsuarioProperties> = ({
           <div className="itens-cadastro">
             <div className="login-cadastro">
               <TextField
+                error={errorEmail}
+                helperText={mensagemErroEmail}
                 fullWidth
                 type="email"
                 value={email}
@@ -376,6 +463,8 @@ const Usuario: FC<UsuarioProperties> = ({
           <div className="itens-cadastro">
             <div className="login-cadastro">
               <TextField
+                error={errorApelido}
+                helperText={mensagemErroApelido}
                 fullWidth
                 value={apelido}
                 id="standard-basic"
@@ -398,6 +487,8 @@ const Usuario: FC<UsuarioProperties> = ({
             </div>
             <div className="login-cadastro">
               <TextField
+                error={errorLogradouro}
+                helperText={mensagemErroLogradouro}
                 fullWidth
                 value={logradouro}
                 id="standard-basic"
@@ -422,6 +513,8 @@ const Usuario: FC<UsuarioProperties> = ({
           <div className="itens-cadastro">
             <div className="login-cadastro">
               <TextField
+                error={errorCep}
+                helperText={mensagemErroCep}
                 fullWidth
                 value={cep}
                 id="standard-basic"
@@ -444,6 +537,8 @@ const Usuario: FC<UsuarioProperties> = ({
             </div>
             <div className="login-cadastro">
               <TextField
+                error={errorBairro}
+                helperText={mensagemErroBairro}
                 fullWidth
                 value={bairro}
                 id="standard-basic"
@@ -468,6 +563,8 @@ const Usuario: FC<UsuarioProperties> = ({
           <div className="itens-cadastro">
             <div className="login-cadastro">
               <TextField
+                error={errorNumero}
+                helperText={mensagemErroNumero}
                 fullWidth
                 value={numero}
                 id="standard-basic"
