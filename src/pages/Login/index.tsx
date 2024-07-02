@@ -95,7 +95,7 @@ const Login: FC = () => {
     const showMensagemModal = () => {
         if(urlParametro.get('msgModal')){
             setEstadoModal(true);
-            setMensagemModal(["Sessão Expirada!"]);
+            setMensagemModal(["A sua sessão expirou!"]);
             setCorModal('warning');
         }
     }
@@ -164,6 +164,7 @@ const Login: FC = () => {
                         }}
                         label="Senha"
                         variant="standard"
+                        type="password"
                         helperText={mensagemErroSenha}
                     />
                 </div>

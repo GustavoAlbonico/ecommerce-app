@@ -23,5 +23,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: 2%;
+}
+
+.pagamento-form-dados {
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-columns:68% 30%;
+    gap: 2%;
 }

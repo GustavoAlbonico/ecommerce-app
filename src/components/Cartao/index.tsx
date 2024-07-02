@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
-import { TextField } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import "./index.css";
-import { ICartao } from "./types";
+import { BANDEIRA_CARTAO, ICartao } from "./types";
 
 interface CartaoProperties {
     mostraModal: boolean,
@@ -16,6 +16,7 @@ const Cartao: FC<CartaoProperties> = ({
     const [numeroCartao, setNumeroCartao] = useState<string>('');
     const [nomeCompleto, setNomeCompleto] = useState<string>('');
     const [codigo, setCodigo] = useState<string>('');
+    const [bandeiraCartao, setBandeiraCartao] = useState<BANDEIRA_CARTAO>(BANDEIRA_CARTAO.VISA);
 
     const mudaModal = () => (mostraModal ? setOpen(true) : setOpen(false));
 
@@ -24,10 +25,16 @@ const Cartao: FC<CartaoProperties> = ({
             nomeCompleto: nomeCompleto,
             numeroCartao: numeroCartao,
             codigo: codigo,
+            bandeiraCartao: bandeiraCartao?.toUpperCase() || '',
         }
 
         buscaCartao(cartao);
     }
+
+    const mudaSelecao = (event: SelectChangeEvent) => {
+        const bandeiraCartaoEnum: BANDEIRA_CARTAO = event.target.value as BANDEIRA_CARTAO;
+        setBandeiraCartao(bandeiraCartaoEnum);
+    };
 
     useEffect(() => {
         mudaModal();
@@ -35,9 +42,10 @@ const Cartao: FC<CartaoProperties> = ({
 
     useEffect(() => {
         construirCartao();
-    }, [numeroCartao, nomeCompleto, codigo]);
+    }, [numeroCartao, nomeCompleto, codigo, bandeiraCartao]);
 
     return <>
+
         {
             open
             &&
@@ -46,22 +54,9 @@ const Cartao: FC<CartaoProperties> = ({
                     <div className="pagamento-img">
                         <img src="/pagamento/cartao-pagamento.png" alt="cartao exemplo" />
                     </div>
-                    <TextField
-                        fullWidth
+                    <div className="pagamento-form-dados">
 
-                        value={nomeCompleto}
-                        label="Nome completo"
-                        type="text"
-                        onChange={(event) => {
-                            if (event) {
-                                setNomeCompleto(event.target.value);
-                            }
-                        }}
-                    />
-
-                    <div className="pagamento-form-codigo">
                         <TextField
-                            sx={{ width: "90%" }}
                             value={numeroCartao}
                             label="Número do cartão"
                             type="text"
@@ -71,8 +66,38 @@ const Cartao: FC<CartaoProperties> = ({
                                 }
                             }}
                         />
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Bandeira</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={bandeiraCartao}
+                                label="Bandeira"
+                                onChange={mudaSelecao}
+                            >
+                                <MenuItem value={BANDEIRA_CARTAO.VISA}>{BANDEIRA_CARTAO.VISA}</MenuItem>
+                                <MenuItem value={BANDEIRA_CARTAO.ELO}>{BANDEIRA_CARTAO.ELO}</MenuItem>
+                                <MenuItem value={BANDEIRA_CARTAO.HIPERCARD}>{BANDEIRA_CARTAO.HIPERCARD}</MenuItem>
+                                <MenuItem value={BANDEIRA_CARTAO.MASTERCARD}>{BANDEIRA_CARTAO.MASTERCARD}</MenuItem>
+                                <MenuItem value={BANDEIRA_CARTAO.AMERICAN_EXPRESS}>{BANDEIRA_CARTAO.AMERICAN_EXPRESS}</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="pagamento-form-codigo">
                         <TextField
-                            sx={{ width: "20%" }}
+                            fullWidth
+                            sx={{ width: "90%" }}
+                            value={nomeCompleto}
+                            label="Nome completo"
+                            type="text"
+                            onChange={(event) => {
+                                if (event) {
+                                    setNomeCompleto(event.target.value);
+                                }
+                            }}
+                        />
+                        <TextField
+                            sx={{ width: "10%" }}
                             value={codigo}
                             label="Código"
                             type="text"

@@ -36,7 +36,7 @@ const FinalizaCompra: FC = () => {
     const theme = useTheme();
 
     const validaCartao = (): boolean => {
-        if (!cartao?.codigo || !cartao?.nomeCompleto || !cartao?.numeroCartao) {
+        if (!cartao?.codigo || !cartao?.nomeCompleto || !cartao?.numeroCartao || !cartao?.bandeiraCartao) {
             return false;
         }
         return true;
@@ -56,6 +56,7 @@ const FinalizaCompra: FC = () => {
             numeroCartao: cartao?.numeroCartao,
             nomeTitular: cartao?.nomeCompleto,
             codigoSeguranca: cartao?.codigo,
+            bandeiraCartao: cartao?.bandeiraCartao,
         }
 
         const pedidoPost: IPedidoPost = {

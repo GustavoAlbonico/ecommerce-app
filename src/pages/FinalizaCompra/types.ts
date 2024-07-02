@@ -1,4 +1,5 @@
 import { STATUS } from "../../components/CardPedido/types";
+import { BANDEIRA_CARTAO } from "../../components/Cartao/types";
 
 export interface IPedidoPost {
   formaPagamento:string,
@@ -19,4 +20,5 @@ export interface IDadosFormaPagamento {
     numeroCartao?:string,
     nomeTitular?:string,
     codigoSeguranca?:string,
+    bandeiraCartao?:string
 }
