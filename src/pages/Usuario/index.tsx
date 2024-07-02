@@ -223,275 +223,294 @@ const Usuario: FC<UsuarioProperties> = ({
       </header>
       <main>
         <h3>Informações - Usuário</h3>
-        <div className="login-cadastro">
-          <TextField
-            fullWidth
-            value={login}
-            id="standard-basic"
-            sx={{
-              '& .MuiInput-underline:after': {
-                borderBottomColor: '#862886',
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#862886',
-              },
-            }}
-            onChange={(e) => {
-              if (e) {
-                setLogin(e.target.value);
-              }
-            }}
-            label="Login"
-            variant="standard"
-          />
-        </div>
-        <div className="cadastro-senha">
-          <TextField
-            fullWidth
-            value={senha}
-            type="password"
-            id="standard-basic"
-            sx={{
-              '& .MuiInput-underline:after': {
-                borderBottomColor: '#862886',
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#862886',
-              },
-            }}
-            onChange={(e) => {
-              if (e) {
-                setSenha(e.target.value);
-              }
-            }}
-            label="Senha"
-            variant="standard"
-          />
+        <div className="info-usuario">
+          <div className="itens-cadastro">
+            <div className="login-cadastro">
+              <TextField
+                fullWidth
+                value={login}
+                id="standard-basic"
+                sx={{
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: '#862886',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#862886',
+                  },
+                }}
+                onChange={(e) => {
+                  if (e) {
+                    setLogin(e.target.value);
+                  }
+                }}
+                label="Login"
+                variant="standard"
+              />
+            </div>
+            <div className="cadastro-senha">
+              <TextField
+                fullWidth
+                value={senha}
+                type="password"
+                id="standard-basic"
+                sx={{
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: '#862886',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#862886',
+                  },
+                }}
+                onChange={(e) => {
+                  if (e) {
+                    setSenha(e.target.value);
+                  }
+                }}
+                label="Senha"
+                variant="standard"
+              />
+            </div>
+          </div>
         </div>
         <h3>Informações - Cliente</h3>
-        <div className="login-cadastro">
-          <TextField
-            fullWidth
-            value={nome}
-            id="standard-basic"
-            sx={{
-              '& .MuiInput-underline:after': {
-                borderBottomColor: '#862886',
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#862886',
-              },
-            }}
-            onChange={(e) => {
-              if (e) {
-                setNome(e.target.value);
-              }
-            }}
-            label="Nome completo"
-            variant="standard"
-          />
-        </div>
-        <div className="login-cadastro">
-          <TextField
-            fullWidth
-            type="date"
-            value={dataNascimento}
-            id="standard-basic"
-            sx={{
-              '& .MuiInput-underline:after': {
-                borderBottomColor: '#862886',
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#862886',
-              },
-            }}
-            onChange={(e) => {
-              if (e) {
-                setDataNascimento(e.target.value);
-              }
-            }}
-            label="Data de nascimento"
-            variant="standard"
-          />
-        </div>
-        <div className="login-cadastro">
-          <TextField
-            fullWidth
-            type="email"
-            value={email}
-            id="standard-basic"
-            sx={{
-              '& .MuiInput-underline:after': {
-                borderBottomColor: '#862886',
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#862886',
-              },
-            }}
-            onChange={(e) => {
-              if (e) {
-                setEmail(e.target.value);
-              }
-            }}
-            label="E-mail"
-            variant="standard"
-          />
-        </div>
-        <div className="login-cadastro">
-          <TextField
-            fullWidth
-            type="number"
-            value={telefone}
-            id="standard-basic"
-            sx={{
-              '& .MuiInput-underline:after': {
-                borderBottomColor: '#862886',
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#862886',
-              },
-            }}
-            onChange={(e) => {
-              if (e) {
-                setTelefone(e.target.value);
-              }
-            }}
-            label="Telefone"
-            variant="standard"
-          />
+        <div className="info-cliente">
+          <div className="itens-cadastro">
+            <div className="login-cadastro">
+              <TextField
+                fullWidth
+                value={nome}
+                id="standard-basic"
+                sx={{
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: '#862886',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#862886',
+                  },
+                }}
+                onChange={(e) => {
+                  if (e) {
+                    setNome(e.target.value);
+                  }
+                }}
+                label="Nome completo"
+                variant="standard"
+              />
+            </div>
+            <div className="login-cadastro">
+              <TextField
+                fullWidth
+                type="date"
+                // placeholder="dataNascimento"
+                value={dataNascimento}
+                id="standard-basic"
+                sx={{
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: '#862886',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#862886',
+                  },
+                }}
+                onChange={(e) => {
+                  if (e) {
+                    setDataNascimento(e.target.value);
+                  }
+                }}
+                label="Data de nascimento"
+                InputLabelProps={{ shrink: true }}
+                variant="standard"
+              />
+            </div>
+          </div>
+          <div className="itens-cadastro">
+            <div className="login-cadastro">
+              <TextField
+                fullWidth
+                type="email"
+                value={email}
+                id="standard-basic"
+                sx={{
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: '#862886',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#862886',
+                  },
+                }}
+                onChange={(e) => {
+                  if (e) {
+                    setEmail(e.target.value);
+                  }
+                }}
+                label="E-mail"
+                variant="standard"
+              />
+            </div>
+            <div className="login-cadastro">
+              <TextField
+                fullWidth
+                value={telefone}
+                id="standard-basic"
+                sx={{
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: '#862886',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#862886',
+                  },
+                }}
+                onChange={(e) => {
+                  if (e) {
+                    setTelefone(e.target.value);
+                  }
+                }}
+                label="Telefone"
+                variant="standard"
+              />
+            </div>
+          </div>
         </div>
         <h3>Informações - Endereço</h3>
-        <div className="login-cadastro">
-          <TextField
-            fullWidth
-            value={apelido}
-            id="standard-basic"
-            sx={{
-              '& .MuiInput-underline:after': {
-                borderBottomColor: '#862886',
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#862886',
-              },
-            }}
-            onChange={(e) => {
-              if (e) {
-                setApelido(e.target.value);
-              }
-            }}
-            label="Apelido"
-            variant="standard"
-          />
-        </div>
-        <div className="login-cadastro">
-          <TextField
-            fullWidth
-            value={logradouro}
-            id="standard-basic"
-            sx={{
-              '& .MuiInput-underline:after': {
-                borderBottomColor: '#862886',
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#862886',
-              },
-            }}
-            onChange={(e) => {
-              if (e) {
-                setLogradouro(e.target.value);
-              }
-            }}
-            label="Logradouro"
-            variant="standard"
-          />
-        </div>
-        <div className="login-cadastro">
-          <TextField
-            fullWidth
-            value={cep}
-            id="standard-basic"
-            sx={{
-              '& .MuiInput-underline:after': {
-                borderBottomColor: '#862886',
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#862886',
-              },
-            }}
-            onChange={(e) => {
-              if (e) {
-                setCep(e.target.value);
-              }
-            }}
-            label="CEP"
-            variant="standard"
-          />
-        </div>
-        <div className="login-cadastro">
-          <TextField
-            fullWidth
-            value={bairro}
-            id="standard-basic"
-            sx={{
-              '& .MuiInput-underline:after': {
-                borderBottomColor: '#862886',
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#862886',
-              },
-            }}
-            onChange={(e) => {
-              if (e) {
-                setBairro(e.target.value);
-              }
-            }}
-            label="Bairro"
-            variant="standard"
-          />
-        </div>
-        <div className="login-cadastro">
-          <TextField
-            fullWidth
-            value={numero}
-            id="standard-basic"
-            sx={{
-              '& .MuiInput-underline:after': {
-                borderBottomColor: '#862886',
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#862886',
-              },
-            }}
-            onChange={(e) => {
-              if (e) {
-                setNumero(e.target.value);
-              }
-            }}
-            label="Número"
-            variant="standard"
-          />
-        </div>
-        <div className="login-cadastro">
-          <TextField
-            fullWidth
-            value={complemento}
-            id="standard-basic"
-            sx={{
-              '& .MuiInput-underline:after': {
-                borderBottomColor: '#862886',
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#862886',
-              },
-            }}
-            onChange={(e) => {
-              if (e) {
-                setComplemento(e.target.value);
-              }
-            }}
-            label="Complemento"
-            variant="standard"
-          />
+        <div className="info-endereco">
+          <div className="itens-cadastro">
+            <div className="login-cadastro">
+              <TextField
+                fullWidth
+                value={apelido}
+                id="standard-basic"
+                sx={{
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: '#862886',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#862886',
+                  },
+                }}
+                onChange={(e) => {
+                  if (e) {
+                    setApelido(e.target.value);
+                  }
+                }}
+                label="Apelido"
+                variant="standard"
+              />
+            </div>
+            <div className="login-cadastro">
+              <TextField
+                fullWidth
+                value={logradouro}
+                id="standard-basic"
+                sx={{
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: '#862886',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#862886',
+                  },
+                }}
+                onChange={(e) => {
+                  if (e) {
+                    setLogradouro(e.target.value);
+                  }
+                }}
+                label="Logradouro"
+                variant="standard"
+              />
+            </div>
+          </div>
+          <div className="itens-cadastro">
+            <div className="login-cadastro">
+              <TextField
+                fullWidth
+                value={cep}
+                id="standard-basic"
+                sx={{
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: '#862886',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#862886',
+                  },
+                }}
+                onChange={(e) => {
+                  if (e) {
+                    setCep(e.target.value);
+                  }
+                }}
+                label="CEP"
+                variant="standard"
+              />
+            </div>
+            <div className="login-cadastro">
+              <TextField
+                fullWidth
+                value={bairro}
+                id="standard-basic"
+                sx={{
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: '#862886',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#862886',
+                  },
+                }}
+                onChange={(e) => {
+                  if (e) {
+                    setBairro(e.target.value);
+                  }
+                }}
+                label="Bairro"
+                variant="standard"
+              />
+            </div>
+          </div>
+          <div className="itens-cadastro">
+            <div className="login-cadastro">
+              <TextField
+                fullWidth
+                value={numero}
+                id="standard-basic"
+                sx={{
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: '#862886',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#862886',
+                  },
+                }}
+                onChange={(e) => {
+                  if (e) {
+                    setNumero(e.target.value);
+                  }
+                }}
+                label="Número"
+                variant="standard"
+              />
+            </div>
+            <div className="login-cadastro">
+              <TextField
+                fullWidth
+                value={complemento}
+                id="standard-basic"
+                sx={{
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: '#862886',
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#862886',
+                  },
+                }}
+                onChange={(e) => {
+                  if (e) {
+                    setComplemento(e.target.value);
+                  }
+                }}
+                label="Complemento"
+                variant="standard"
+              />
+            </div>
+          </div>
         </div>
 
 
@@ -505,7 +524,7 @@ const Usuario: FC<UsuarioProperties> = ({
               }
             }}
             variant="contained"
-          onClick={salvaUsuario}
+            onClick={salvaUsuario}
           >
             Cadastrar
           </Button>

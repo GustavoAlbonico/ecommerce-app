@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 6.8rem;
+    gap: 4rem;
     min-width: 100vw;
     min-height: 100vh;
     background: rgb(241,142,0);
@@ -19,19 +19,25 @@
 
 .header-cadastro>a {
     padding: 5px 0;
-    width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 180px; */
 }
 
-.header-cadastro>a img {
-    width: 180px;
+.header-login img {
+    max-width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .container-cadastro-page main {
     border-radius: 5px;
-    /* width: 20%; */
+    width: 70%;
     background-color: #e3c0f8;
     box-shadow: 0px 0px 6px 0px #383838;
-    padding: 2rem 3rem;
+    padding: 4rem 8rem;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -63,4 +69,16 @@
 .container-cadastro-page main p a {
     color: #7f0db8;
     text-decoration: none;
+}
+
+.itens-cadastro {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.info-usuario,
+.info-cliente,
+.info-endereco {
+    margin-bottom: 30px;
 }
