@@ -9,7 +9,7 @@ function App() {
 
   const verificaRotaCarrinho = (): boolean => (window.location.pathname === "/pedido" ? true : false);
 
-  const verificaRotaLogin = (): boolean => (window.location.pathname === "/usuario/login" ? true : false);
+  const verificaRotaLogin = (): boolean => (window.location.pathname === "/usuario/login" || window.location.pathname === "/usuario/cadastro" ? true : false);
 
   useEffect(() => {
     if(!verificaRotaLogin()){
