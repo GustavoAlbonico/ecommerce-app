@@ -147,7 +147,7 @@ const MinhaConta: FC = () => {
                                             <div className="minha-conta-endereco-card">
                                                 <div className="minha-conta-endereco-remove"></div>
                                                 <div 
-                                                title="Double click para excluir"
+                                                title="Clique duas vezes para excluir"
                                                     onDoubleClick={async () => {
                                                        await removerEndereco(endereco.id);
                                                     }}
