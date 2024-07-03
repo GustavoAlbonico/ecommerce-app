@@ -5,7 +5,7 @@ import "./index.css";
 import { AlertColor, Button, TextField } from "@mui/material";
 import { IClienteEdit } from "./types";
 import { STATUS_CODE, apiGet, apiPut } from "../../api/RestClient";
-import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
+import { buscaUsuarioSessao, removerUsuario } from "../../store/UsuarioStore/usuarioStore";
 import { IUsuarioStore } from "../../store/UsuarioStore/types";
 import MensagemModal from "../../components/MensagemModal";
 
@@ -131,6 +131,7 @@ const Cliente: FC = () => {
         }
 
         if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
+            removerUsuario();
             window.location.href = "/usuario/login?msgModal=true";
             return;
         }

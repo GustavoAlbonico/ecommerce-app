@@ -1,0 +1,100 @@
+.container-cadastro-page {
+    padding-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 4rem;
+    min-width: 100vw;
+    min-height: 100vh;
+    background: rgb(241,142,0);
+    background: linear-gradient(55deg, rgba(241,142,0,1) 0%, rgba(102,0,153,0.896796218487395) 79%);
+}
+
+.header-cadastro {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.header-cadastro>a {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-cadastro img {
+    max-width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-cadastro-page main {
+    border-radius: 5px;
+    width: 40%;
+    background-color: #e3c0f8;
+    box-shadow: 0px 0px 6px 0px #383838;
+    padding: 1.2rem 8rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.container-cadastro-page main h3 {
+    margin: 0 0 5px 0px;
+    color: #8220b3;
+    font-weight: 500;
+    
+}
+
+.container-cadastro-page main h3:nth-child(1){
+    font-size: 2.4rem;
+}
+
+#cadastroSubTitulo {
+    margin: 15px 0px 5px 0px;
+    font-size: 16px;
+}
+
+#cadastroSubTituloGeral {
+    margin: 20px 0px 10px 0px;
+    font-size: 18px;
+}
+
+.container-cadastro-page main div {
+    width: 100%;
+}
+
+.cadastro-buttons {
+    text-align: center;
+    padding: 15px 0px 10px 0px;
+}
+
+.container-cadastro-page main p {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.container-cadastro-page main p a {
+    color: #7f0db8;
+    text-decoration: none;
+}
+
+.itens-cadastro {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.itens-cadastro div div {
+    margin-bottom: 2px;
+}
+
+.info-usuario {
+    margin-bottom: 1rem;
+}

@@ -59,7 +59,7 @@ const Login: FC = () => {
 
         if (response.status === STATUS_CODE.OK) {
 
-            const usuario:IUsuarioStore = {
+            const usuario: IUsuarioStore = {
                 id: response.data.id,
                 login: response.data.nome,
                 token: response.data.token
@@ -70,19 +70,19 @@ const Login: FC = () => {
         }
 
         if (response.status === STATUS_CODE.BAD_REQUEST) {
-           const listaMensagens = response.messages;
+            const listaMensagens = response.messages;
 
-           for(const mensagem of listaMensagens){
-                if(mensagem.includes("Login")){
+            for (const mensagem of listaMensagens) {
+                if (mensagem.includes("Login")) {
                     setErrorLogin(true);
                     setMensagemErroLogin(mensagem);
                     continue;
                 }
-                if(mensagem.includes("Senha")){
+                if (mensagem.includes("Senha")) {
                     setErrorSenha(true);
                     setMensagemErroSenha(mensagem);
                 }
-           }
+            }
         }
 
         if (response.status === STATUS_CODE.INTERNAL_SERVER_ERROR) {
@@ -93,7 +93,7 @@ const Login: FC = () => {
     }
 
     const showMensagemModal = () => {
-        if(urlParametro.get('msgModal')){
+        if (urlParametro.get('msgModal')) {
             setEstadoModal(true);
             setMensagemModal(["A sua sessão expirou!"]);
             setCorModal('warning');
@@ -102,17 +102,17 @@ const Login: FC = () => {
 
     useEffect(() => {
         showMensagemModal();
-    },[])
+    }, [])
 
     return <>
         <MensagemModalLogin
-                estadoInicial={estadoModal}
-                corModal={corModal}
-                mensagem={mensagemModal}
-                onClose={() => {
-                    setEstadoModal(false);
-                }}
-            />
+            estadoInicial={estadoModal}
+            corModal={corModal}
+            mensagem={mensagemModal}
+            onClose={() => {
+                setEstadoModal(false);
+            }}
+        />
         <div className="container-login-page">
             <header className="header-login">
                 <a href="/home"><img src="/logo-login.svg" alt="" /></a>
@@ -124,7 +124,6 @@ const Login: FC = () => {
                         fullWidth
                         error={errorLogin}
                         value={login}
-                        id="standard-basic"
                         sx={{
                             '& .MuiInput-underline:after': {
                                 borderBottomColor: '#862886',
@@ -148,7 +147,6 @@ const Login: FC = () => {
                         fullWidth
                         error={errorSenha}
                         value={senha}
-                        id="standard-basic"
                         sx={{
                             '& .MuiInput-underline:after': {
                                 borderBottomColor: '#862886',

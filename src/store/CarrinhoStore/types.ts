@@ -4,4 +4,5 @@ export interface ICarrinhoStore {
     valorUnitario: number,
     quantidade: number,
     imagem: string,
+    quantidadeEstoque:number,
 }

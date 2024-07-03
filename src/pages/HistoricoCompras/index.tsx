@@ -4,7 +4,7 @@ import "./index.css";
 import CardPedido from "../../components/CardPedido";
 import { IPedido, IPedidoItem } from "./types";
 import { STATUS_CODE, apiGet } from "../../api/RestClient";
-import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
+import { buscaUsuarioSessao, removerUsuario } from "../../store/UsuarioStore/usuarioStore";
 import { AlertColor } from "@mui/material";
 import MensagemModal from "../../components/MensagemModal";
 
@@ -26,6 +26,12 @@ const HistoricoCompras: FC = () => {
 
             if (response.status === STATUS_CODE.OK) {
                 setPedido(response.data);
+                return;
+            }
+
+            if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
+                removerUsuario();
+                window.location.href = "/usuario/login?msgModal=true";
                 return;
             }
 

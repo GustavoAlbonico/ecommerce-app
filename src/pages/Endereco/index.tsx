@@ -4,7 +4,7 @@ import "./index.css";
 import { AlertColor, Button, TextField } from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { IUsuarioStore } from "../../store/UsuarioStore/types";
-import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
+import { buscaUsuarioSessao, removerUsuario } from "../../store/UsuarioStore/usuarioStore";
 import { STATUS_CODE, apiGet, apiPost, apiPut } from "../../api/RestClient";
 import { IEndereco } from "./types";
 import MensagemModal from "../../components/MensagemModal";
@@ -159,6 +159,7 @@ const Endereco: FC<EnderecoProperties> = ({
             }
 
             if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
+                removerUsuario();
                 window.location.href = "/usuario/login?msgModal=true";
                 return;
             }
@@ -179,6 +180,7 @@ const Endereco: FC<EnderecoProperties> = ({
         }
 
         if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
+            removerUsuario();
             window.location.href = "/usuario/login?msgModal=true";
             return;
         }
@@ -219,6 +221,7 @@ const Endereco: FC<EnderecoProperties> = ({
             setUsuarioSessao(usuario);
             return;
         }
+
         window.location.href = "/usuario/login?msgModal=true";
     }
 

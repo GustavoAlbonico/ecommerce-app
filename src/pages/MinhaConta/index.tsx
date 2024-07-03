@@ -4,11 +4,12 @@ import Aside from "../../components/Aside"
 import HeaderContainer from "../../components/HeaderContainer"
 import ContentGroup from "../../components/ContentGroup"
 import { ICliente, IEndereco } from "./types"
-import { STATUS_CODE, apiGet } from "../../api/RestClient"
-import { buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore"
+import { STATUS_CODE, apiDelete, apiGet } from "../../api/RestClient"
+import { buscaUsuarioSessao, removerUsuario } from "../../store/UsuarioStore/usuarioStore"
 import MensagemModal from "../../components/MensagemModal"
 import { AlertColor } from "@mui/material"
 import { useLocation, useNavigate } from "react-router-dom"
+import CloseIcon from '@mui/icons-material/Close';
 
 const MinhaConta: FC = () => {
     const navigate = useNavigate();
@@ -19,6 +20,32 @@ const MinhaConta: FC = () => {
     const [estadoModal, setEstadoModal] = useState<boolean>(false);
     const [mensagemModal, setMensagemModal] = useState<string[]>([]);
     const [corModal, setCorModal] = useState<AlertColor>("success");
+
+
+    const removerEndereco = async (idEndereco:number) => {
+
+        const response = await apiDelete(`endereco/deletar/${idEndereco}`);
+
+        if (response.status === STATUS_CODE.OK) {
+            setEstadoModal(true);
+            setMensagemModal(["Endereço removido com sucesso!"]);
+            setCorModal("success");
+
+            carregarCliente();
+            return;
+        }
+
+        if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
+            removerUsuario();
+            window.location.href = "/usuario/login?msgModal=true";
+            return;
+        }
+
+        setEstadoModal(true);
+        setMensagemModal(["Erro inesperado!"]);
+        setCorModal("error");
+        return;
+    }
 
     const carregarCliente = async () => {
 
@@ -36,7 +63,8 @@ const MinhaConta: FC = () => {
             }
 
             if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
-                navigate("/usuario/login");
+                removerUsuario();
+                window.location.href = "/usuario/login?msgModal=true";
                 return;
             }
 
@@ -45,7 +73,7 @@ const MinhaConta: FC = () => {
             setCorModal("error");
             return;
         }
-        
+
         window.location.href = "/usuario/login?msgModal=true";
     }
 
@@ -117,6 +145,24 @@ const MinhaConta: FC = () => {
                                     {cliente.enderecos.map((endereco: IEndereco) => {
                                         return <>
                                             <div className="minha-conta-endereco-card">
+                                                <div className="minha-conta-endereco-remove"></div>
+                                                <div 
+                                                title="Double click para excluir"
+                                                    onDoubleClick={async () => {
+                                                       await removerEndereco(endereco.id);
+                                                    }}
+                                                >
+                                                    <CloseIcon
+                                                        sx={{
+                                                            fontSize: "0.8rem",
+                                                            position:"absolute",
+                                                            right:"2px",
+                                                            top:"2px", 
+                                                            color:"#bf0000",
+                                                            cursor:"pointer",
+                                                            }}
+                                                        />
+                                                </div>
                                                 <HeaderContainer
                                                     titulo={endereco.apelido}
                                                     nomeBotao="Editar"
