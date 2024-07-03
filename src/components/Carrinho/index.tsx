@@ -109,6 +109,9 @@ const Carrinho: FC = () => {
                                 <InputQuantidade
                                     quantidade={item.quantidade}
                                     onChange={(quantidade: number) => {
+                            
+                                        if(quantidade > item.quantidadeEstoque) return;
+
                                         const carrinhoAtualizado: ICarrinhoStore = {
                                             ...item,
                                             quantidade: quantidade,

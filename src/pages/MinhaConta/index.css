@@ -35,6 +35,19 @@
     font-size: 0.9rem;
 }
 
+.minha-conta-endereco-card {
+    position: relative;
+}
+
+.minha-conta-endereco-card .minha-conta-endereco-remove {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    right: 0;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    background-color: #da8dda;
+}
+
 .minha-conta-perfil .component-header-container h3,
 .minha-conta-endereco-header > .component-header-container h3{
     font-size: 1.1rem;

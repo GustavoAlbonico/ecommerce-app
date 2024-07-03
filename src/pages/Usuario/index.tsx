@@ -1,12 +1,12 @@
 import { AlertColor, Button, TextField } from "@mui/material";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import "./index.css"
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { IUsuarioStore } from "../../store/UsuarioStore/types";
 import { IClienteCadastro, IEnderecoCadastro, IUsuarioCadastro } from "./types";
 import { STATUS_CODE, apiPost } from "../../api/RestClient";
-import { adicionaUsuarioSessao, buscaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
-import MensagemModal from "../../components/MensagemModal";
+import { adicionaUsuarioSessao } from "../../store/UsuarioStore/usuarioStore";
+import MensagemModalLogin from "../../components/MensagemModalLogin";
 
 interface UsuarioProperties {
 
@@ -16,9 +16,6 @@ const Usuario: FC<UsuarioProperties> = ({
 
 
 }) => {
-  const navigate = useNavigate();
-  const [usuarioSessao, setUsuarioSessao] = useState<IUsuarioStore>();
-  const [urlParametro, setUrlParametro] = useSearchParams();
   const [estadoModal, setEstadoModal] = useState<boolean>(false);
   const [mensagemModal, setMensagemModal] = useState<string[]>([]);
   const [corModal, setCorModal] = useState<AlertColor>("success");
@@ -49,10 +46,12 @@ const Usuario: FC<UsuarioProperties> = ({
   const [errorNome, setErrorNome] = useState<boolean>(false);
   const [errorDataNascimento, setErrorDataNascimento] = useState<boolean>(false);
   const [errorEmail, setErrorEmail] = useState<boolean>(false);
+  const [errorTelefone, setErrorTelefone] = useState<boolean>(false);
 
   const [mensagemErroNome, setMensagemErroNome] = useState<string>();
   const [mensagemErroDataNascimento, setMensagemErroDataNascimento] = useState<string>();
   const [mensagemErroEmail, setMensagemErroEmail] = useState<string>();
+  const [mensagemErroTelefone, setMensagemErroTelefone] = useState<string>();
 
   // validações - endereço
   const [errorApelido, setErrorApelido] = useState<boolean>(false);
@@ -79,6 +78,8 @@ const Usuario: FC<UsuarioProperties> = ({
     setMensagemErroDataNascimento("");
     setErrorEmail(false);
     setMensagemErroEmail("");
+    setErrorTelefone(false);
+    setMensagemErroTelefone("");
 
     setErrorApelido(false);
     setMensagemErroApelido("");
@@ -92,7 +93,7 @@ const Usuario: FC<UsuarioProperties> = ({
     setMensagemErroCep("");
   }
 
-  const validaUsuario = (): boolean => {
+  const validaCadastro = (): boolean => {
     let hasError = false;
 
     if (!login) {
@@ -107,11 +108,6 @@ const Usuario: FC<UsuarioProperties> = ({
       hasError = true;
     }
 
-    return hasError;
-  }
-
-  const validaCliente = (): boolean => {
-    let hasError = false;
 
     if (!nome) {
       setErrorNome(true);
@@ -131,11 +127,13 @@ const Usuario: FC<UsuarioProperties> = ({
       hasError = true;
     }
 
-    return hasError;
-  }
+    if (!telefone) {
+      setErrorTelefone(true);
+      setMensagemErroTelefone("Campo obrigatório");
+      hasError = true;
+    }
 
-  const validaEndereco = (): boolean => {
-    let hasError = false;
+
 
     if (!apelido) {
       setErrorApelido(true);
@@ -195,6 +193,11 @@ const Usuario: FC<UsuarioProperties> = ({
         setMensagemErroEmail(mensagem);
         continue;
       }
+      if (mensagem.includes("Telefone")) {
+        setErrorTelefone(true);
+        setMensagemErroTelefone(mensagem);
+        continue;
+      }
 
 
       if (mensagem.includes("Apelido")) {
@@ -228,7 +231,7 @@ const Usuario: FC<UsuarioProperties> = ({
 
   const salvaUsuario = async () => {
     limpaError();
-    if (validaUsuario() && validaCliente() && validaEndereco()) return;
+    if (validaCadastro()) return;
 
     const endereco: IEnderecoCadastro = {
       apelido,
@@ -238,7 +241,6 @@ const Usuario: FC<UsuarioProperties> = ({
       logradouro,
       complemento,
     }
-
 
     const cliente: IClienteCadastro = {
       nome,
@@ -255,10 +257,9 @@ const Usuario: FC<UsuarioProperties> = ({
     }
 
 
-
     const response = await apiPost("/usuario/cadastro", usuario);
 
-    if (response.status === STATUS_CODE.OK) {
+    if (response.status === STATUS_CODE.CREATED) {
       const usuario: IUsuarioStore = {
         id: response.data.id,
         login: response.data.nome,
@@ -269,9 +270,8 @@ const Usuario: FC<UsuarioProperties> = ({
       window.location.href = "/home";
     }
 
-    if (response.status === STATUS_CODE.FORBIDDEN) {//redireciona para o login
-      window.location.href = "/usuario/login?msgModal=true";
-      return;
+    if (response.status === STATUS_CODE.BAD_REQUEST) {
+      mostraErrorResponse(response.messages);
     }
 
     if (response.status === STATUS_CODE.INTERNAL_SERVER_ERROR) {
@@ -280,13 +280,10 @@ const Usuario: FC<UsuarioProperties> = ({
       setCorModal("error");
     }
 
-    if (response.status === STATUS_CODE.BAD_REQUEST) {
-      mostraErrorResponse(response.messages);
-    }
   }
 
   return <>
-    <MensagemModal
+    <MensagemModalLogin
       estadoInicial={estadoModal}
       corModal={corModal}
       mensagem={mensagemModal}
@@ -299,8 +296,9 @@ const Usuario: FC<UsuarioProperties> = ({
         <a href="/home"><img src="/logo-login.svg" alt="" /></a>
       </header>
       <main>
-        <h3>Informações - Usuário</h3>
+        <h3>Cadastro</h3>
         <div className="info-usuario">
+        <h3 id="cadastroSubTituloGeral">Informações gerais</h3>
           <div className="itens-cadastro">
             <div className="login-cadastro">
               <TextField
@@ -308,7 +306,6 @@ const Usuario: FC<UsuarioProperties> = ({
                 helperText={mensagemErroLogin}
                 fullWidth
                 value={login}
-                id="standard-basic"
                 sx={{
                   '& .MuiInput-underline:after': {
                     borderBottomColor: '#862886',
@@ -333,7 +330,6 @@ const Usuario: FC<UsuarioProperties> = ({
                 fullWidth
                 value={senha}
                 type="password"
-                id="standard-basic"
                 sx={{
                   '& .MuiInput-underline:after': {
                     borderBottomColor: '#862886',
@@ -352,9 +348,6 @@ const Usuario: FC<UsuarioProperties> = ({
               />
             </div>
           </div>
-        </div>
-        <h3>Informações - Cliente</h3>
-        <div className="info-cliente">
           <div className="itens-cadastro">
             <div className="login-cadastro">
               <TextField
@@ -362,7 +355,6 @@ const Usuario: FC<UsuarioProperties> = ({
                 helperText={mensagemErroNome}
                 fullWidth
                 value={nome}
-                id="standard-basic"
                 sx={{
                   '& .MuiInput-underline:after': {
                     borderBottomColor: '#862886',
@@ -386,9 +378,7 @@ const Usuario: FC<UsuarioProperties> = ({
                 helperText={mensagemErroDataNascimento}
                 fullWidth
                 type="date"
-                // placeholder="dataNascimento"
                 value={dataNascimento}
-                id="standard-basic"
                 sx={{
                   '& .MuiInput-underline:after': {
                     borderBottomColor: '#862886',
@@ -416,7 +406,6 @@ const Usuario: FC<UsuarioProperties> = ({
                 fullWidth
                 type="email"
                 value={email}
-                id="standard-basic"
                 sx={{
                   '& .MuiInput-underline:after': {
                     borderBottomColor: '#862886',
@@ -436,9 +425,10 @@ const Usuario: FC<UsuarioProperties> = ({
             </div>
             <div className="login-cadastro">
               <TextField
+                error={errorTelefone}
+                helperText={mensagemErroTelefone}
                 fullWidth
                 value={telefone}
-                id="standard-basic"
                 sx={{
                   '& .MuiInput-underline:after': {
                     borderBottomColor: '#862886',
@@ -457,9 +447,7 @@ const Usuario: FC<UsuarioProperties> = ({
               />
             </div>
           </div>
-        </div>
-        <h3>Informações - Endereço</h3>
-        <div className="info-endereco">
+          <h3 id="cadastroSubTitulo">Endereço</h3>
           <div className="itens-cadastro">
             <div className="login-cadastro">
               <TextField
@@ -467,7 +455,6 @@ const Usuario: FC<UsuarioProperties> = ({
                 helperText={mensagemErroApelido}
                 fullWidth
                 value={apelido}
-                id="standard-basic"
                 sx={{
                   '& .MuiInput-underline:after': {
                     borderBottomColor: '#862886',
@@ -491,7 +478,6 @@ const Usuario: FC<UsuarioProperties> = ({
                 helperText={mensagemErroLogradouro}
                 fullWidth
                 value={logradouro}
-                id="standard-basic"
                 sx={{
                   '& .MuiInput-underline:after': {
                     borderBottomColor: '#862886',
@@ -517,7 +503,6 @@ const Usuario: FC<UsuarioProperties> = ({
                 helperText={mensagemErroCep}
                 fullWidth
                 value={cep}
-                id="standard-basic"
                 sx={{
                   '& .MuiInput-underline:after': {
                     borderBottomColor: '#862886',
@@ -541,7 +526,6 @@ const Usuario: FC<UsuarioProperties> = ({
                 helperText={mensagemErroBairro}
                 fullWidth
                 value={bairro}
-                id="standard-basic"
                 sx={{
                   '& .MuiInput-underline:after': {
                     borderBottomColor: '#862886',
@@ -567,7 +551,6 @@ const Usuario: FC<UsuarioProperties> = ({
                 helperText={mensagemErroNumero}
                 fullWidth
                 value={numero}
-                id="standard-basic"
                 sx={{
                   '& .MuiInput-underline:after': {
                     borderBottomColor: '#862886',
@@ -589,7 +572,6 @@ const Usuario: FC<UsuarioProperties> = ({
               <TextField
                 fullWidth
                 value={complemento}
-                id="standard-basic"
                 sx={{
                   '& .MuiInput-underline:after': {
                     borderBottomColor: '#862886',

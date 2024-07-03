@@ -69,6 +69,9 @@ const DetalheProduto: FC = () => {
           <InputQuantidade
             quantidade={quantidadeProduto || 0}
             onChange={(quantidade: number) => {
+
+              if(quantidade > (produto?.quantidadeEstoque || 0)) return;
+
               setQuantidadeProduto(quantidade);
             }}
           />
@@ -104,6 +107,3 @@ const DetalheProduto: FC = () => {
 };
 
 export default DetalheProduto;
-function carregarCarrinho(): ICarrinhoStore[] {
-  throw new Error("Function not implemented.");
-}

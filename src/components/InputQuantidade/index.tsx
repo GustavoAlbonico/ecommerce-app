@@ -45,6 +45,9 @@ const InputQuantidade: FC<InputQuantidadeProperties> = ({
                     className="add-quantidade"
                     size="small"
                     onClick={(event) => {
+                        
+                        if(quantidade > 4) return;
+
                         const qtde = quantidade + 1;
 
                         if(qtde){
